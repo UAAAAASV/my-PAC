@@ -1,249 +1,664 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>打包模拟</title>
+    <title>打包模拟室</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Serif+SC:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
     <style>
         :root {
-            --bg-base: #f1f5f9;
-            --panel-bg: #ffffff;
-            --panel-border: #e2e8f0;
-            --cyan: #0284c7;
-            --cyan-hover: #0369a1;
-            --cyan-glow: rgba(2, 132, 199, 0.12);
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --card-bg: #ffffff;
-            --card-border: #e2e8f0;
-            --input-bg: #ffffff;
-            --shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-            --btn-radius: 6px;
+            --bg-base: #F8F6F0;
+            --panel-bg: #FFFFFF;
+            --panel-border: #E5DFD3;
+            --card-bg: #FAF9F5;
+            --card-border: #E5DFD3;
+            --input-bg: #FFFFFF;
+            --ink: #181614;
+            --antique: #9B7844;
+            --antique-hover: #7A5E33;
+            --antique-glow: rgba(155, 120, 68, 0.18);
+            --gilded: #B89047;
+            --madder: #A32A24;
+            --papershadow: #EBE5D8;
+            --text-main: #181614;
+            --text-muted: #78716c;
+            --btn-radius: 2px;
             --btn-height: 28px;
+            --box-shadow-chic: 3px 4px 0px 0px #EBE5D8;
+            --font-serif: "Cormorant Garamond", "Noto Serif SC", serif;
+            --font-sans: "Plus Jakarta Sans", -apple-system, sans-serif;
         }
 
-        body.dark-mode {
-            --bg-base: #090d16;
-            --panel-bg: #0f172a;
-            --panel-border: #1e293b;
-            --cyan: #38bdf8;
-            --cyan-hover: #0ea5e9;
-            --cyan-glow: rgba(56, 189, 248, 0.15);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --card-bg: #1e293b;
-            --card-border: #334155;
-            --input-bg: #0f172a;
-            --shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+        /* 极高辨识度暗夜金模式 */
+        body.skin-dark {
+            --bg-base: #0E1217;
+            --panel-bg: #161B22;
+            --panel-border: #30363D;
+            --card-bg: #1C2128;
+            --card-border: #373E48;
+            --input-bg: #0D1117;
+            --ink: #F0F6FC;
+            --antique: #E3B341;
+            --antique-hover: #F2C765;
+            --antique-glow: rgba(227, 179, 65, 0.25);
+            --gilded: #E3B341;
+            --madder: #F85149;
+            --papershadow: #010409;
+            --text-main: #F0F6FC;
+            --text-muted: #9CA3AF;
+            --box-shadow-chic: 3px 4px 0px 0px #010409;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", sans-serif; -webkit-font-smoothing: antialiased; }
-        body { display: flex; height: 100vh; width: 100vw; background: var(--bg-base); color: var(--text-main); overflow: hidden; position: relative; }
+        /* 极简白模式 */
+        body.skin-tech {
+            --bg-base: #F3F4F6;
+            --panel-bg: #FFFFFF;
+            --panel-border: #E2E8F0;
+            --card-bg: #F8FAFC;
+            --card-border: #E2E8F0;
+            --input-bg: #FFFFFF;
+            --ink: #0F172A;
+            --antique: #334155;
+            --antique-hover: #1E293B;
+            --antique-glow: rgba(51, 65, 85, 0.15);
+            --gilded: #475569;
+            --madder: #EF4444;
+            --papershadow: #CBD5E1;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --box-shadow-chic: 3px 4px 0px 0px #E2E8F0;
+        }
+
+        *, *::-webkit-scrollbar {
+            -ms-overflow-style: none !important;
+            scrollbar-width: none !important;
+        }
+        *::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+
+        ::selection {
+            background-color: var(--text-main);
+            color: var(--panel-bg);
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            overflow: hidden;
+            position: relative;
+        }
+
+        #polkaPatternLayer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            background-image: radial-gradient(rgba(155, 120, 68, 0.14) 1.2px, transparent 1.2px);
+            background-size: 26px 26px;
+            animation: floatDots 40s linear infinite;
+        }
+        @keyframes floatDots {
+            0% { background-position: 0 0; }
+            100% { background-position: 52px 104px; }
+        }
+
+        #dustCanvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0.7;
+        }
 
         input[type=number]::-webkit-inner-spin-button, 
         input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         input[type=number] { -moz-appearance: textfield; }
 
         #hud-sidebar {
-            width: 430px; height: 100%; background: var(--panel-bg);
-            border-right: 1px solid var(--panel-border); box-shadow: var(--shadow);
-            display: flex; flex-direction: column; z-index: 30; overflow-y: auto; overflow-x: hidden;
-            flex-shrink: 0; scrollbar-width: thin; scrollbar-color: var(--cyan) transparent;
+            width: 430px;
+            height: 100%;
+            background: var(--panel-bg);
+            border-right: 1px solid var(--panel-border);
+            display: flex;
+            flex-direction: column;
+            z-index: 30;
+            overflow-y: auto;
+            overflow-x: hidden;
+            flex-shrink: 0;
             padding-bottom: 20px;
+            position: relative;
         }
-        #hud-sidebar::-webkit-scrollbar { width: 5px; }
-        #hud-sidebar::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 4px; }
 
         .hud-header {
-            position: sticky; top: 0; z-index: 50;
-            padding: 10px 14px; border-bottom: 1px solid var(--panel-border);
-            display: flex; justify-content: space-between; align-items: center;
-            background: var(--panel-bg); backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--panel-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--panel-bg);
+            backdrop-filter: blur(10px);
         }
-        .hud-title h1 { font-size: 0.95rem; font-weight: 700; color: var(--cyan); letter-spacing: 0.5px; }
-        .header-actions { display: flex; align-items: center; gap: 6px; }
-        
+
+        .hud-title h1 {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* 设置按钮严格与单位切换等高、尺寸对称 */
         .icon-btn {
-            background: var(--input-bg); border: 1px solid var(--card-border); color: var(--text-main);
-            width: var(--btn-height); height: var(--btn-height) !important; border-radius: var(--btn-radius); display: flex; align-items: center; justify-content: center;
-            cursor: pointer; font-size: 0.85rem; transition: all 0.15s; box-sizing: border-box;
+            background: var(--card-bg);
+            border: 1px solid var(--panel-border);
+            color: var(--text-main);
+            height: var(--btn-height) !important;
+            width: var(--btn-height) !important;
+            min-width: var(--btn-height) !important;
+            padding: 0;
+            border-radius: var(--btn-radius);
+            font-size: 0.76rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            box-shadow: 2px 2px 0px 0px var(--papershadow);
         }
-        .icon-btn:hover { border-color: var(--cyan); color: var(--cyan); }
-        
-        .unit-toggle { display: flex; background: var(--card-border); border-radius: var(--btn-radius); padding: 2px; height: var(--btn-height) !important; box-sizing: border-box; }
-        .unit-btn { background: transparent; border: none; color: var(--text-muted); font-size: 0.72rem; font-weight: 700; padding: 0 8px; border-radius: 4px; cursor: pointer; height: 100%; transition: 0.15s; }
-        .unit-btn.active { background: var(--panel-bg); color: var(--cyan); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .icon-btn:hover {
+            border-color: var(--antique);
+            color: var(--antique);
+        }
 
-        .hud-content { padding: 8px 10px; display: flex; flex-direction: column; gap: 8px; width: 100%; }
-        
+        .unit-toggle {
+            display: flex;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: var(--btn-radius);
+            padding: 2px;
+            height: var(--btn-height) !important;
+            box-sizing: border-box;
+            box-shadow: 2px 2px 0px 0px var(--papershadow);
+        }
+        .unit-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0 8px;
+            height: 100%;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .unit-btn.active {
+            background: var(--text-main);
+            color: var(--panel-bg);
+        }
+
+        .hud-content {
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
         .sci-card {
-            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px;
-            padding: 8px 10px; display: flex; flex-direction: column; gap: 6px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--btn-radius);
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            box-shadow: var(--box-shadow-chic);
+            position: relative;
+            transition: all 0.25s;
         }
-        .card-head { display: flex; justify-content: space-between; align-items: center; }
-        .card-label { font-size: 0.82rem; font-weight: 700; color: var(--text-main); }
 
-        .input-group-field { display: flex; flex-direction: column; gap: 2px; }
-        .field-label { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; }
+        .card-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed var(--card-border);
+            padding-bottom: 5px;
+        }
+        .card-label {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
 
-        .grid-3col { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; width: 100%; }
-        
-        /* 统一直角无缝拼接与严格 28px 高度 */
+        .input-group-field {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .field-label {
+            font-family: var(--font-serif);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .grid-3col {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 5px;
+            width: 100%;
+        }
+
         .input-with-label {
-            display: flex; align-items: center; width: 100%;
-            background: var(--input-bg); border: 1px solid var(--card-border);
-            border-radius: var(--btn-radius); height: var(--btn-height) !important; min-height: var(--btn-height) !important; max-height: var(--btn-height) !important;
-            overflow: hidden; transition: border-color 0.15s, box-shadow 0.15s; box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--btn-radius);
+            height: var(--btn-height) !important;
+            overflow: hidden;
+            transition: all 0.2s;
+            box-sizing: border-box;
         }
-        .input-with-label:focus-within { border-color: var(--cyan); box-shadow: 0 0 0 2px var(--cyan-glow); }
-        
+        .input-with-label:focus-within {
+            border-color: var(--antique);
+            box-shadow: 0 0 0 2px var(--antique-glow);
+        }
+
         .input-with-label input.sci-input,
         .input-with-label select.sci-select {
-            flex: 1; border: none !important; background: transparent !important; height: 100% !important; min-width: 0;
-            padding: 0 4px; color: var(--text-main); font-size: 0.8rem; font-weight: 700; outline: none !important; box-shadow: none !important; border-radius: 0 !important;
-            text-align: center; box-sizing: border-box;
+            flex: 1;
+            border: none !important;
+            background: transparent !important;
+            height: 100% !important;
+            min-width: 0;
+            padding: 0 6px;
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            font-weight: 600;
+            outline: none !important;
+            box-shadow: none !important;
+            text-align: center;
+            box-sizing: border-box;
         }
         .input-with-label select.sci-select {
-            text-align: left; padding: 0 6px; font-size: 0.78rem; font-weight: 600;
+            text-align: left;
+            padding: 0 8px;
+            font-size: 0.76rem;
         }
 
         .input-with-label .suffix-text {
-            background: var(--bg-base); border-left: 1px solid var(--card-border); border-radius: 0 !important;
-            padding: 0 5px; font-size: 0.62rem; color: var(--text-muted); font-weight: 600;
-            display: flex; align-items: center; justify-content: center; height: 100% !important; white-space: nowrap; pointer-events: none; flex-shrink: 0; box-sizing: border-box;
+            background: var(--card-bg);
+            border-left: 1px solid var(--card-border);
+            padding: 0 6px;
+            font-family: var(--font-serif);
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100% !important;
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
         }
         .suffix-text b.u-lab {
-            font-size: 0.58rem !important;
+            font-family: var(--font-sans);
+            font-size: 0.6rem !important;
             font-weight: 600;
-            margin-left: 1px;
+            margin-left: 2px;
         }
 
         .sci-input, select.sci-select {
-            height: var(--btn-height) !important; min-height: var(--btn-height) !important; max-height: var(--btn-height) !important;
-            background: var(--input-bg); border: 1px solid var(--card-border); color: var(--text-main); padding: 0 6px;
-            border-radius: var(--btn-radius); font-size: 0.78rem; font-weight: 600; outline: none; transition: 0.15s; width: 100%; min-width: 0; box-sizing: border-box;
+            height: var(--btn-height) !important;
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 0 8px;
+            border-radius: var(--btn-radius);
+            font-family: var(--font-sans);
+            font-size: 0.78rem;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.2s;
+            width: 100%;
         }
-        .sci-input:focus, select.sci-select:focus { border-color: var(--cyan); box-shadow: 0 0 0 2px var(--cyan-glow); }
-        select.sci-select { cursor: pointer; }
+        .sci-input:focus, select.sci-select:focus {
+            border-color: var(--antique);
+            box-shadow: 0 0 0 2px var(--antique-glow);
+        }
 
-        select.sci-select.preset-selected-active {
-            border-color: var(--cyan) !important;
-            background-color: rgba(2, 132, 199, 0.08) !important;
-            color: var(--cyan) !important;
+        /* 选中或自定义均享受主题变色 */
+        select.sci-select.preset-selected-active,
+        select.sci-select.custom-active {
+            border-color: var(--antique) !important;
+            background-color: var(--card-bg) !important;
+            color: var(--antique) !important;
             font-weight: 700 !important;
-            box-shadow: 0 0 0 2px var(--cyan-glow) !important;
-        }
-        body.dark-mode select.sci-select.preset-selected-active {
-            background-color: rgba(56, 189, 248, 0.12) !important;
-            color: var(--cyan) !important;
         }
 
-        .tool-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-        .tool-title { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; flex-shrink: 0; }
-        
+        .tool-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+        }
+        .tool-title {
+            font-family: var(--font-serif);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
         .segmented-control {
-            display: flex; background: var(--input-bg); border: 1px solid var(--card-border); border-radius: var(--btn-radius);
-            padding: 2px; gap: 2px; flex: 1; height: var(--btn-height) !important; min-height: var(--btn-height) !important; max-height: var(--btn-height) !important;
-            align-items: center; box-sizing: border-box;
+            display: flex;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--btn-radius);
+            padding: 2px;
+            gap: 2px;
+            flex: 1;
+            height: var(--btn-height) !important;
+            align-items: center;
+            box-sizing: border-box;
         }
         .seg-btn {
-            flex: 1; height: 100% !important; background: transparent; border: none; color: var(--text-muted);
-            font-size: 0.7rem; font-weight: 600; padding: 0 4px; border-radius: 4px; cursor: pointer; transition: all 0.15s;
-            white-space: nowrap; display: flex; align-items: center; justify-content: center; box-sizing: border-box; user-select: none;
+            flex: 1;
+            height: 100% !important;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-serif);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 0 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
         }
-        .seg-btn.active { background: var(--cyan); color: #fff; font-weight: 700; }
-        .seg-btn.tape-active { background: #eab308; color: #fff; font-weight: 700; }
+        .seg-btn.active {
+            background: var(--text-main);
+            color: var(--panel-bg);
+            font-weight: 700;
+        }
+        .seg-btn.tape-active {
+            background: var(--antique);
+            color: #ffffff;
+            font-weight: 700;
+        }
 
-        .btn-group { display: flex; gap: 4px; align-items: center; flex-shrink: 0; }
+        .btn-group {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            flex-shrink: 0;
+        }
         .sci-btn-mini {
-            height: var(--btn-height) !important; min-height: var(--btn-height) !important; max-height: var(--btn-height) !important;
-            background: var(--input-bg); border: 1px solid var(--card-border); color: var(--text-main);
-            font-size: 0.7rem; font-weight: 600; padding: 0 8px; border-radius: var(--btn-radius); cursor: pointer;
-            transition: all 0.15s; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; box-sizing: border-box;
-        }
-        .sci-btn-mini:hover { border-color: var(--cyan); color: var(--cyan); }
-        .sci-btn-mini.danger:hover { border-color: #ef4444; color: #ef4444; }
-        .sci-btn-primary { background: var(--cyan); color: #fff !important; border-color: var(--cyan); font-weight: 700; }
-        .sci-btn-primary:hover { background: var(--cyan-hover); border-color: var(--cyan-hover); }
-
-        .match-eval-card {
+            height: var(--btn-height) !important;
+            background: var(--input-bg);
             border: 1px solid var(--card-border);
-            transition: border-color 0.2s, box-shadow 0.2s;
+            color: var(--text-main);
+            font-family: var(--font-serif);
+            font-size: 0.74rem;
+            font-weight: 600;
+            padding: 0 8px;
+            border-radius: var(--btn-radius);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            box-shadow: 2px 2px 0px 0px var(--papershadow);
         }
-        .match-eval-card.fit-ok { border-color: rgba(2, 132, 199, 0.4); }
-        .match-eval-card.fit-warn { border-color: rgba(234, 179, 8, 0.5); }
-        .match-eval-card.fit-over { border-color: rgba(239, 68, 68, 0.4); }
+        .sci-btn-mini:hover {
+            border-color: var(--antique);
+            color: var(--antique);
+        }
+        .sci-btn-mini.danger:hover {
+            border-color: var(--madder);
+            color: var(--madder);
+        }
+        .sci-btn-primary {
+            background: var(--text-main);
+            color: var(--panel-bg) !important;
+            border-color: var(--text-main);
+            font-weight: 700;
+        }
+        .sci-btn-primary:hover {
+            background: var(--antique);
+            border-color: var(--antique);
+            color: #ffffff !important;
+        }
+
+        .match-eval-card.fit-ok {
+            border-color: var(--antique);
+        }
+        .match-eval-card.fit-warn {
+            border-color: #b45309;
+        }
+        .match-eval-card.fit-over {
+            border-color: var(--madder);
+        }
 
         .badge-capsule {
-            padding: 2px 8px; border-radius: 20px; font-size: 0.68rem; font-weight: 700;
-            display: inline-flex; align-items: center; gap: 4px;
+            padding: 2px 8px;
+            border-radius: 2px;
+            font-family: var(--font-serif);
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid currentColor;
         }
-        .badge-capsule.bg-fit { background: rgba(2, 132, 199, 0.12); color: var(--cyan); }
-        .badge-capsule.bg-warn { background: rgba(234, 179, 8, 0.15); color: #b45309; }
-        .badge-capsule.bg-over { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
+        .badge-capsule.bg-fit {
+            background: rgba(155, 120, 68, 0.08);
+            color: var(--antique);
+        }
+        .badge-capsule.bg-warn {
+            background: rgba(180, 83, 9, 0.08);
+            color: #b45309;
+        }
+        .badge-capsule.bg-over {
+            background: rgba(163, 42, 36, 0.08);
+            color: var(--madder);
+        }
 
         .match-info-strip {
-            background: var(--bg-base); border: 1px solid var(--card-border);
-            border-radius: 6px; padding: 6px 8px; display: flex; flex-direction: column; gap: 4px;
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--btn-radius);
+            padding: 6px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
         .multi-item-card {
-            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 6px;
-            padding: 6px; display: flex; flex-direction: column; gap: 4px;
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--btn-radius);
+            padding: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            box-shadow: 2px 2px 0px 0px var(--papershadow);
         }
 
-        #viewport-3d { flex: 1; position: relative; width: 100%; height: 100%; cursor: grab; }
+        #viewport-3d {
+            flex: 1;
+            min-width: 0;
+            height: 100%;
+            position: relative;
+            cursor: grab;
+            background: var(--bg-base);
+            overflow: hidden;
+        }
         #viewport-3d:active { cursor: grabbing; }
         #canvas3d { width: 100%; height: 100%; display: block; touch-action: none; }
 
         .floating-hud {
-            position: absolute; top: 12px; right: 12px; left: auto; display: flex; gap: 8px;
-            pointer-events: none; z-index: 20;
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            display: flex;
+            gap: 6px;
+            pointer-events: none;
+            z-index: 20;
+            max-width: calc(100% - 28px);
+            justify-content: flex-end;
         }
         .f-group {
-            display: flex; gap: 4px; pointer-events: auto;
-            background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 30px;
-            padding: 3px 6px; box-shadow: var(--shadow);
+            display: flex;
+            gap: 3px;
+            pointer-events: auto;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: var(--btn-radius);
+            padding: 2px 4px;
+            box-shadow: var(--box-shadow-chic);
         }
         .f-btn {
-            background: transparent; border: none; color: var(--text-muted); font-size: 0.7rem;
-            font-weight: 600; padding: 3px 8px; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: 0.15s;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-serif);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 2px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
         }
-        .f-btn.active { background: var(--cyan); color: #ffffff; }
+        .f-btn.active {
+            background: var(--text-main);
+            color: var(--panel-bg);
+        }
 
         .ref-tray-container {
-            position: absolute; bottom: 12px; left: 12px; right: 12px; max-width: 440px;
-            background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 8px;
-            padding: 10px 12px; display: none; flex-direction: column; gap: 8px; font-size: 0.75rem;
-            box-shadow: var(--shadow); z-index: 20;
+            position: absolute;
+            bottom: 12px;
+            left: 14px;
+            right: 14px;
+            max-width: 440px;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: var(--btn-radius);
+            padding: 10px 12px;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.75rem;
+            box-shadow: var(--box-shadow-chic);
+            z-index: 20;
         }
         .ref-tray-container.show { display: flex; }
-        .ref-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
-        .ref-item { display: flex; align-items: center; gap: 4px; cursor: pointer; color: var(--text-main); font-weight: 600; }
+        .ref-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .ref-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            color: var(--text-main);
+            font-weight: 600;
+            font-family: var(--font-serif);
+        }
 
         .modal-mask {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: center;
-            justify-content: center; padding: 12px; backdrop-filter: blur(2px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(24, 22, 20, 0.5);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            backdrop-filter: blur(4px);
         }
         .modal-card {
-            background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px;
-            padding: 14px; width: 100%; max-width: 580px; max-height: 90vh; overflow-y: auto;
-            box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 10px;
-        }
-        .modal-head { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 0.95rem; color: var(--cyan); border-bottom: 1px solid var(--panel-border); padding-bottom: 8px; }
-
-        /* 锁定资源管理窗口绝对高度，彻底消除折叠时的界面跳动 */
-        #manager-modal .modal-card {
-            height: 82vh !important;
-            min-height: 82vh !important;
-            max-height: 82vh !important;
-            overflow: hidden !important;
+            background: var(--panel-bg);
+            border: 1px solid var(--panel-border);
+            border-radius: var(--btn-radius);
+            padding: 16px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 88vh;
+            box-shadow: 6px 8px 0px 0px var(--papershadow), 0 10px 25px rgba(0,0,0,0.15);
             display: flex;
             flex-direction: column;
+            gap: 10px;
+        }
+        .modal-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-serif);
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-main);
+            border-bottom: 1px solid var(--panel-border);
+            padding-bottom: 8px;
         }
 
-        #mgr-content-item, #mgr-content-box {
+        #manager-modal .modal-card {
+            height: 84vh !important;
+            min-height: 84vh !important;
+            max-height: 84vh !important;
+            overflow: hidden !important;
+        }
+
+        #mgr-content-item, #mgr-content-box, #mgr-content-skins {
             flex: 1;
             min-height: 0;
             overflow: hidden;
@@ -256,71 +671,186 @@
             flex: 1;
             min-height: 0;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .mgr-folder-block {
-            background: #ffffff; border: 1px solid var(--card-border); border-radius: 8px;
-            padding: 8px 10px; display: flex; flex-direction: column; gap: 6px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--btn-radius);
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            box-shadow: 2px 2px 0px 0px var(--papershadow);
         }
-        body.dark-mode .mgr-folder-block { background: var(--card-bg); }
 
         .mgr-folder-title {
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 0.78rem; font-weight: 700; color: var(--cyan); cursor: pointer;
-            user-select: none; padding: 2px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-serif);
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-main);
+            user-select: none;
+            padding: 2px 0;
         }
-        .mgr-folder-title:hover { opacity: 0.85; }
-        
+
+        .mgr-lock-btn {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            padding: 2px 8px;
+            font-size: 0.72rem;
+            cursor: pointer;
+            border-radius: var(--btn-radius);
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-family: var(--font-sans);
+        }
+        .mgr-lock-btn.locked {
+            background: var(--input-bg);
+            color: var(--text-muted);
+            border-color: var(--card-border);
+            font-weight: 600;
+        }
+        .mgr-lock-btn.unlocked {
+            background: rgba(155, 120, 68, 0.12);
+            color: var(--antique);
+            border-color: var(--antique);
+            font-weight: 700;
+        }
+
         .mgr-folder-content {
-            display: flex; flex-direction: column; gap: 6px; border-top: 1px dashed var(--card-border); padding-top: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            border-top: 1px dashed var(--card-border);
+            padding-top: 6px;
         }
         .mgr-folder-content.collapsed { display: none; }
 
         .mgr-item-card {
-            display: flex; flex-direction: column; gap: 6px; padding: 8px;
-            background: #ffffff !important; border: 1px solid var(--card-border); border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 8px;
+            background: var(--panel-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--btn-radius);
+            transition: border-color 0.2s;
         }
-        body.dark-mode .mgr-item-card { background: var(--card-bg) !important; }
-        .mgr-item-card:hover { border-color: var(--cyan); }
+        .mgr-item-card:hover { border-color: var(--antique); }
 
         .mgr-field-row {
-            display: flex; align-items: center; gap: 6px; width: 100%;
-            height: var(--btn-height) !important; min-height: var(--btn-height) !important; max-height: var(--btn-height) !important;
-            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            width: 100%;
+            height: var(--btn-height) !important;
         }
-        .mgr-name-input { flex: 1; min-width: 0; height: var(--btn-height) !important; font-weight: 700; color: var(--cyan); text-align: left !important; padding: 0 8px !important; }
+        .mgr-name-input {
+            flex: 1;
+            min-width: 0;
+            height: var(--btn-height) !important;
+            font-weight: 700;
+            color: var(--antique);
+            text-align: left !important;
+            padding: 0 8px !important;
+        }
 
         .mgr-add-block {
-            background: #ffffff !important; border: 1px solid var(--card-border); border-radius: 8px;
-            padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--btn-radius);
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-shrink: 0;
+            box-shadow: 2px 2px 0px 0px var(--papershadow);
         }
-        body.dark-mode .mgr-add-block { background: var(--card-bg) !important; }
-
         .mgr-add-header {
-            font-weight: 700; font-size: 0.75rem; color: var(--cyan);
-            display: flex; justify-content: space-between; align-items: center; height: 24px;
+            font-family: var(--font-serif);
+            font-weight: 700;
+            font-size: 0.78rem;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* 宽绰舒适的主题皮肤选择卡片网格 */
+        .skin-grid-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            width: 100%;
+        }
+        .skin-card-item {
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--btn-radius);
+            padding: 10px 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 3px;
+            box-shadow: 2px 2px 0px 0px var(--papershadow);
+        }
+        .skin-card-item:hover {
+            border-color: var(--antique);
+        }
+        .skin-card-item.active {
+            border-color: var(--antique) !important;
+            background: var(--card-bg) !important;
+            box-shadow: 0 0 0 1.5px var(--antique), 3px 3px 0px 0px var(--papershadow);
+        }
+        .skin-card-title {
+            font-family: var(--font-serif);
+            font-size: 0.86rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+        .skin-card-sub {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            font-weight: 500;
         }
 
         @media (max-width: 860px) {
             body { flex-direction: column; }
             #hud-sidebar { width: 100%; height: 55vh; order: 2; border-right: none; border-top: 1px solid var(--panel-border); }
             #viewport-3d { width: 100%; height: 45vh; order: 1; }
-            .floating-hud { top: 8px; right: 8px; gap: 4px; }
+            .floating-hud { top: 8px; right: 8px; }
             .ref-tray-container { bottom: 8px; left: 8px; right: 8px; max-width: none; }
         }
     </style>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
-<body>
+<body class="skin-editorial">
+
+    <div id="polkaPatternLayer"></div>
+    <canvas id="dustCanvas"></canvas>
 
     <div id="hud-sidebar">
         <div class="hud-header">
-            <div class="hud-title"><h1>📦 打包模拟室</h1></div>
+            <div class="hud-title">
+                <h1>📦 模拟室</h1>
+            </div>
             <div class="header-actions">
-                <button class="icon-btn" title="日/夜模式" onclick="toggleTheme()">☀️</button>
-                <button class="icon-btn" title="调色盘" onclick="openModal('settings-modal')">🎨</button>
-                <button class="icon-btn" title="资源管理" onclick="openManagerModal()">📂</button>
+                <button class="icon-btn" onclick="openMasterModal()" title="设置">
+                    <i class="fa-solid fa-sliders"></i>
+                </button>
                 <div class="unit-toggle" id="unit-group">
                     <button class="unit-btn active" id="btn-cm" onclick="setSysUnit('cm')">cm</button>
                     <button class="unit-btn" id="btn-mm" onclick="setSysUnit('mm')">mm</button>
@@ -346,7 +876,7 @@
                 <div id="single-item-container" style="display:flex; flex-direction:column; gap:6px;">
                     <div class="input-group-field">
                         <span class="field-label">预设选择</span>
-                        <select class="sci-select" id="item-preset-select" onchange="onItemPresetSelect(this.value)">
+                        <select class="sci-select custom-active" id="item-preset-select" onchange="onItemPresetSelect(this.value)">
                             <option value="custom_item">✏️ 自定义尺寸...</option>
                         </select>
                     </div>
@@ -364,7 +894,7 @@
                             <button class="seg-btn" id="pos-stand" onclick="setPosture('stand')">立放</button>
                             <button class="seg-btn" id="pos-side" onclick="setPosture('side')">侧放</button>
                         </div>
-                        <button class="sci-btn-mini" onclick="autoOrientItem()">自适应</button>
+                        <button class="sci-btn-mini" onclick="autoOrientItem()">适应</button>
                     </div>
 
                     <div class="tool-row">
@@ -423,7 +953,7 @@
                 <div class="card-head">
                     <span class="card-label" style="display:flex; align-items:center; gap:6px;">
                         🎯 匹配模拟
-                        <span id="match-box-title" style="font-size:0.75rem; color:var(--text-muted); font-weight:600;">05号标准箱</span>
+                        <span id="match-box-title" style="font-size:0.75rem; color:var(--antique); font-weight:600;">05号标准箱</span>
                     </span>
                     <div style="display:flex; align-items:center; gap:4px;">
                         <span id="status-fill-rate" class="badge-capsule bg-fit">100%</span>
@@ -432,23 +962,23 @@
                 </div>
 
                 <div class="match-info-strip">
-                    <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.7rem;">
-                        <span style="color:var(--text-muted);">纸箱规格:</span>
+                    <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.75rem;">
+                        <span style="color:var(--text-muted); font-family:var(--font-serif);">纸箱规格:</span>
                         <span id="match-box-dims" style="font-weight:700; color:var(--text-main);">(29×17×19 cm)</span>
                     </div>
-                    <div id="status-sub" style="font-size:0.7rem; font-weight:600; color:var(--text-main);">
+                    <div id="status-sub" style="font-size:0.72rem; font-weight:600; color:var(--text-main); font-family:var(--font-serif);">
                         余量: 长+6.5cm 宽+0.5cm 高+3.0cm
                     </div>
                 </div>
                 
                 <div class="tool-row" style="margin-top:2px;">
-                    <span class="tool-title" style="width:52px;">附加缓冲:</span>
+                    <span class="tool-title" style="width:55px;">附加缓冲:</span>
                     <div style="display:flex; gap:6px; flex:1;">
                         <div class="input-with-label"><input type="number" id="in-custom-pad" class="sci-input" placeholder="0" oninput="onCustomPadInput(this.value)"><span class="suffix-text">膜 <b class="u-lab">cm</b></span></div>
                         <div class="input-with-label"><input type="number" id="in-custom-gap" class="sci-input" placeholder="0" oninput="onCustomGapInput(this.value)"><span class="suffix-text">缝隙 <b class="u-lab">cm</b></span></div>
                     </div>
                 </div>
-                <button class="sci-btn-mini sci-btn-primary" style="width:100%; height:30px; margin-top:2px;" onclick="autoFitBestBox()">⚡ 一键匹配最佳纸箱</button>
+                <button class="sci-btn-mini sci-btn-primary" style="width:100%; height:30px; margin-top:2px;" onclick="autoFitBestBox()">⚡ 一键匹配</button>
             </div>
 
         </div>
@@ -472,15 +1002,15 @@
 
         <div class="ref-tray-container" id="ref-tray-panel">
             <div class="ref-row">
-                <div style="font-weight:700; color:var(--text-main);">参照物体</div>
-                <div style="display:flex; gap:10px;">
+                <div style="font-weight:700; color:var(--text-main); font-family:var(--font-serif);">参照</div>
+                <div style="display:flex; gap:12px;">
                     <label class="ref-item"><input type="checkbox" id="ref-phone" checked onchange="updateRefVisibility()"> 📱 手机</label>
                     <label class="ref-item"><input type="checkbox" id="ref-can" checked onchange="updateRefVisibility()"> 🥤 罐子</label>
                     <label class="ref-item"><input type="checkbox" id="ref-a4" onchange="updateRefVisibility()"> 📄 A4纸</label>
                 </div>
             </div>
             <div class="ref-row">
-                <span style="font-weight:600; color:var(--text-muted);">手机长宽厚:</span>
+                <span style="font-weight:600; color:var(--text-muted); font-family:var(--font-serif);">手机长宽厚:</span>
                 <div style="display:flex; gap:4px; align-items:center;">
                     <div class="input-with-label"><input type="number" id="in-phone-l" class="sci-input" value="14.7" oninput="onPhoneSizeChange()"><span class="suffix-text">长 <b class="u-lab">cm</b></span></div>×
                     <div class="input-with-label"><input type="number" id="in-phone-w" class="sci-input" value="7.2" oninput="onPhoneSizeChange()"><span class="suffix-text">宽 <b class="u-lab">cm</b></span></div>×
@@ -490,18 +1020,18 @@
         </div>
     </div>
 
-    <!-- 侧边栏保存快捷弹窗 -->
+    <!-- 侧边栏保存物品弹窗 -->
     <div id="save-item-modal" class="modal-mask" onclick="if(event.target===this)closeModal('save-item-modal')">
         <div class="modal-card" style="max-width:380px;">
             <div class="modal-head"><span>保存物品到库</span><span style="cursor:pointer;" onclick="closeModal('save-item-modal')">✕</span></div>
-            <div class="input-cell" style="display:flex; flex-direction:column; gap:3px;">
+            <div class="input-group-field">
                 <span class="field-label">分类夹</span>
-                <div class="input-with-label" style="height:28px;">
+                <div class="input-with-label">
                     <select class="sci-select" id="save-item-folder-select" onchange="onSaveFolderSelectChange('item', this.value)"></select>
                     <span class="suffix-text">分类</span>
                 </div>
             </div>
-            <div class="input-cell" style="display:flex; flex-direction:column; gap:3px;">
+            <div class="input-group-field">
                 <span class="field-label">物品名称</span>
                 <input type="text" class="sci-input" id="custom-item-name" placeholder="带上命名，如：单盒">
             </div>
@@ -511,17 +1041,18 @@
         </div>
     </div>
 
+    <!-- 侧边栏保存纸箱弹窗 -->
     <div id="save-box-modal" class="modal-mask" onclick="if(event.target===this)closeModal('save-box-modal')">
         <div class="modal-card" style="max-width:380px;">
             <div class="modal-head"><span>保存纸箱到库</span><span style="cursor:pointer;" onclick="closeModal('save-box-modal')">✕</span></div>
-            <div class="input-cell" style="display:flex; flex-direction:column; gap:3px;">
+            <div class="input-group-field">
                 <span class="field-label">分类夹</span>
-                <div class="input-with-label" style="height:28px;">
+                <div class="input-with-label">
                     <select class="sci-select" id="save-box-folder-select" onchange="onSaveFolderSelectChange('box', this.value)"></select>
                     <span class="suffix-text">分类</span>
                 </div>
             </div>
-            <div class="input-cell" style="display:flex; flex-direction:column; gap:3px;">
+            <div class="input-group-field">
                 <span class="field-label">箱型名称</span>
                 <input type="text" class="sci-input" id="custom-box-name" placeholder="带上命名，如：端盒箱">
             </div>
@@ -531,25 +1062,26 @@
         </div>
     </div>
 
-    <!-- 资源管理弹窗 -->
+    <!-- 综合管理与设置模态窗 -->
     <div id="manager-modal" class="modal-mask" onclick="if(event.target===this)closeModal('manager-modal')">
         <div class="modal-card">
             <div class="modal-head">
-                <span>📂 资源管理</span>
+                <span>📂 管理设置</span>
                 <span style="cursor:pointer;" onclick="closeModal('manager-modal')">✕</span>
             </div>
             
             <div class="segmented-control" style="min-height:28px; max-height:28px;">
-                <button class="seg-btn active" id="mgr-tab-item" onclick="onMgrTabClick('item')">📦 物品</button>
-                <button class="seg-btn" id="mgr-tab-box" onclick="onMgrTabClick('box')">📦 纸箱</button>
+                <button class="seg-btn active" id="mgr-tab-item" onclick="onMgrTabClick('item')">物品</button>
+                <button class="seg-btn" id="mgr-tab-box" onclick="onMgrTabClick('box')">纸箱</button>
+                <button class="seg-btn" id="mgr-tab-skins" onclick="onMgrTabClick('skins')">风格</button>
             </div>
             
-            <!-- 物品库管理面板 -->
+            <!-- 1. 物品管理 -->
             <div id="mgr-content-item">
                 <div class="mgr-add-block">
                     <div class="mgr-add-header">
-                        <span>➕ 直接在库中新增物品规格</span>
-                        <button class="sci-btn-mini danger" style="height:22px; min-height:22px; max-height:22px;" onclick="resetDefaultItems()">恢复出厂默认物品</button>
+                        <span>➕新增物品规格</span>
+                        <button class="sci-btn-mini danger" style="height:22px !important;" onclick="resetDefaultItems()">恢复默认物品</button>
                     </div>
                     <div class="mgr-field-row">
                         <div class="input-with-label">
@@ -559,7 +1091,7 @@
                     </div>
                     <div class="mgr-field-row">
                         <input type="text" id="mgr-add-item-name" class="sci-input mgr-name-input" placeholder="物品名称 (例如：手办单盒)">
-                        <button class="sci-btn-mini sci-btn-primary" style="height:28px !important; min-height:28px !important; max-height:28px !important; padding:0 14px;" onclick="mgrSubmitNewItem()">添加规格</button>
+                        <button class="sci-btn-mini sci-btn-primary" style="padding:0 14px;" onclick="mgrSubmitNewItem()">添加规格</button>
                     </div>
                     <div class="grid-3col">
                         <div class="input-with-label"><input type="number" id="mgr-add-item-l" class="sci-input" placeholder="长"><span class="suffix-text">长 <b class="u-lab">cm</b></span></div>
@@ -571,12 +1103,12 @@
                 <div id="mgr-items-folder-container"></div>
             </div>
 
-            <!-- 纸箱库管理面板 -->
+            <!-- 2. 纸箱管理 -->
             <div id="mgr-content-box" style="display:none;">
                 <div class="mgr-add-block">
                     <div class="mgr-add-header">
-                        <span>➕ 在库中新增纸箱</span>
-                        <button class="sci-btn-mini danger" style="height:22px; min-height:22px; max-height:22px;" onclick="resetDefaultBoxes()">恢复默认纸箱</button>
+                        <span>➕新增纸箱</span>
+                        <button class="sci-btn-mini danger" style="height:22px !important;" onclick="resetDefaultBoxes()">恢复默认纸箱</button>
                     </div>
                     <div class="mgr-field-row">
                         <div class="input-with-label">
@@ -586,7 +1118,7 @@
                     </div>
                     <div class="mgr-field-row">
                         <input type="text" id="mgr-add-box-name" class="sci-input mgr-name-input" placeholder="纸箱名称 (例如：定制箱)">
-                        <button class="sci-btn-mini sci-btn-primary" style="height:28px !important; min-height:28px !important; max-height:28px !important; padding:0 14px;" onclick="mgrSubmitNewBox()">添加规格</button>
+                        <button class="sci-btn-mini sci-btn-primary" style="padding:0 14px;" onclick="mgrSubmitNewBox()">添加规格</button>
                     </div>
                     <div class="grid-3col">
                         <div class="input-with-label"><input type="number" id="mgr-add-box-l" class="sci-input" placeholder="长"><span class="suffix-text">长 <b class="u-lab">cm</b></span></div>
@@ -597,25 +1129,64 @@
 
                 <div id="mgr-boxes-folder-container"></div>
             </div>
+
+            <!-- 3. 风格与调色盘 -->
+            <div id="mgr-content-skins" style="display:none; overflow-y:auto; padding-right:2px;">
+                <div class="sci-card">
+                    <span class="card-label">主题设定</span>
+                    <div class="skin-grid-selector">
+                        <div class="skin-card-item active" id="skin-btn-editorial" onclick="setSkinMode('editorial')">
+                            <span class="skin-card-title">杂志</span>
+                            <span class="skin-card-sub">纯白纸箱 · 黑金描边</span>
+                        </div>
+                        <div class="skin-card-item" id="skin-btn-dark" onclick="setSkinMode('dark')">
+                            <span class="skin-card-title">夜金</span>
+                            <span class="skin-card-sub">高辨识度 · 曜黑夜境</span>
+                        </div>
+                        <div class="skin-card-item" id="skin-btn-tech" onclick="setSkinMode('tech')">
+                            <span class="skin-card-title">极简</span>
+                            <span class="skin-card-sub">白箱石墨描边 · 纯净冷调</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sci-card">
+                    <span class="card-label">背景动效</span>
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:3px 0;">
+                        <span style="font-size:0.75rem;">飘动点阵网格:</span>
+                        <input type="checkbox" id="toggle-polka" checked onchange="togglePolkaLayer(this.checked)" style="cursor:pointer;">
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:3px 0;">
+                        <span style="font-size:0.75rem;">浮动微尘粒子:</span>
+                        <input type="checkbox" id="toggle-dust" checked onchange="toggleDustLayer(this.checked)" style="cursor:pointer;">
+                    </div>
+                </div>
+
+                <div class="sci-card">
+                    <span class="card-label">🎨 系统调色盘</span>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:0.75rem;">背景底色:</span>
+                        <input type="color" id="picker-bg" value="#F8F6F0" onchange="applyCustomColors()">
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:0.75rem;">纸箱纸色:</span>
+                        <input type="color" id="picker-box" value="#FFFFFF" onchange="applyCustomColors()">
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:0.75rem;">物品颜色:</span>
+                        <input type="color" id="picker-item" value="#EBE7DF" onchange="applyCustomColors()">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- 系统调色盘弹窗 -->
-    <div id="settings-modal" class="modal-mask" onclick="if(event.target===this)closeModal('settings-modal')">
-        <div class="modal-card" style="max-width:380px;">
-            <div class="modal-head"><span>🎨 系统调色盘</span><span style="cursor:pointer;" onclick="closeModal('settings-modal')">✕</span></div>
-            <div style="display:flex; justify-content:space-between; align-items:center;"><span>背景底色:</span><input type="color" id="picker-bg" value="#f1f5f9" onchange="applyCustomColors()"></div>
-            <div style="display:flex; justify-content:space-between; align-items:center;"><span>纸箱纸色:</span><input type="color" id="picker-box" value="#c58f59" onchange="applyCustomColors()"></div>
-            <div style="display:flex; justify-content:space-between; align-items:center;"><span>物品颜色:</span><input type="color" id="picker-item" value="#ffffff" onchange="applyCustomColors()"></div>
-        </div>
-    </div>
-
-    <!-- 内置通用交互弹窗 -->
+    <!-- 交互提示弹窗 -->
     <div id="sys-prompt-modal" class="modal-mask">
         <div class="modal-card" style="max-width:350px;">
             <div class="modal-head"><span id="sys-prompt-title">提示</span></div>
             <div id="sys-prompt-msg" style="font-size:0.8rem; color:var(--text-main); line-height:1.4;"></div>
-            <input type="text" id="sys-prompt-input" class="sci-input" style="display:none; width:100%; margin-top:4px;">
+            <input type="text" id="sys-prompt-input" class="sci-input" style="display:none; width:100%; margin-top:6px;">
             <div class="btn-group" style="margin-top:8px; justify-content:flex-end;">
                 <button class="sci-btn-mini" id="sys-prompt-cancel" style="display:none;">取消</button>
                 <button class="sci-btn-mini sci-btn-primary" id="sys-prompt-confirm">确定</button>
@@ -666,7 +1237,7 @@
                 const cfm = document.getElementById('sys-prompt-confirm');
                 cfm.onclick = () => { m.style.display = 'none'; resolve(inp.value); };
                 m.style.display = 'flex';
-                setTimeout(() => inp.focus(), 50);
+                setTimeout(() => inp.focus(), 60);
             });
         }
 
@@ -683,6 +1254,7 @@
             "p10": { name: "10号标准箱", folder: "邮政标准纸箱", dims: [175, 95, 115] },
             "p11": { name: "11号标准箱", folder: "邮政标准纸箱", dims: [145, 85, 105] },
             "p12": { name: "12号标准箱", folder: "邮政标准纸箱", dims: [130, 80, 90] },
+            "h03": { name: "矮03号", folder: "半高矮箱", dims: [430, 210, 135] },
             "h04": { name: "矮04号", folder: "半高矮箱", dims: [350, 190, 115] },
             "h05": { name: "矮05号", folder: "半高矮箱", dims: [290, 170, 95] },
             "h06": { name: "矮06号", folder: "半高矮箱", dims: [260, 150, 90] },
@@ -695,8 +1267,8 @@
         };
 
         const INITIAL_ITEM_PRESETS = {
-            "pop_single": { name: "单盒", folder: "潮玩盲盒", dims: [265, 165, 65] },
-            "pop_case": { name: "大盒", folder: "潮玩盲盒", dims: [335, 270, 135] }
+            "pop_single": { name: "单盒", folder: "盲盒", dims: [265, 165, 65] },
+            "pop_case": { name: "大盒", folder: "盲盒", dims: [335, 270, 135] }
         };
 
         let BOX_PRESETS = JSON.parse(localStorage.getItem('cyber_pack_all_boxes') || JSON.stringify(INITIAL_BOX_PRESETS));
@@ -706,12 +1278,27 @@
         for (const k in BOX_PRESETS) { if (!BOX_PRESETS[k].folder) BOX_PRESETS[k].folder = "默认分类"; }
 
         let folderCollapseState = { item: {}, box: {} };
+        let folderLockState = JSON.parse(localStorage.getItem('atelier_folder_locks') || '{"item":{},"box":{}}');
+
+        function isFolderLocked(type, folderName) {
+            if (folderLockState[type][folderName] === undefined) return true;
+            return !!folderLockState[type][folderName];
+        }
+
+        function toggleFolderLock(type, folderName, event) {
+            if (event) event.stopPropagation();
+            const curr = isFolderLocked(type, folderName);
+            folderLockState[type][folderName] = !curr;
+            localStorage.setItem('atelier_folder_locks', JSON.stringify(folderLockState));
+            if (type === 'item') renderManagerItemsList();
+            else renderManagerBoxesList();
+        }
 
         function saveBoxesToStorage() { localStorage.setItem('cyber_pack_all_boxes', JSON.stringify(BOX_PRESETS)); }
         function saveItemsToStorage() { localStorage.setItem('cyber_pack_all_items', JSON.stringify(ITEM_PRESETS)); }
 
         let curUnit = 'cm';
-        let isDarkMode = false;
+        let currentSkin = 'editorial';
         let viewMode = 'nest';
         let flapState = 'open';
         let tapeEnabled = false;
@@ -739,6 +1326,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             init3D();
+            initDustCanvas();
             setSysUnit('cm');
             refreshPresetsDropdowns();
             renderMultiItemsUI();
@@ -755,6 +1343,7 @@
             });
             if(btnId) { const btn = document.getElementById(btnId); if(btn) btn.classList.add('active'); }
         }
+
         function openModal(id) { 
             document.getElementById(id).style.display = 'flex'; 
             if (id === 'save-item-modal' || id === 'save-box-modal') refreshSaveModalFolderSelects();
@@ -763,36 +1352,26 @@
         
         let activeMgrTab = 'item';
         function onMgrTabClick(tab) {
-            if (activeMgrTab === tab) {
-                toggleAllFoldersCollapse(tab);
-            } else {
-                activeMgrTab = tab;
-                switchMgrTab(tab);
-            }
+            activeMgrTab = tab;
+            switchMgrTab(tab);
         }
 
         function switchMgrTab(tab) {
-            activeMgrTab = tab;
             document.getElementById('mgr-tab-item').classList.toggle('active', tab === 'item');
             document.getElementById('mgr-tab-box').classList.toggle('active', tab === 'box');
+            document.getElementById('mgr-tab-skins').classList.toggle('active', tab === 'skins');
+            
             document.getElementById('mgr-content-item').style.display = tab === 'item' ? 'flex' : 'none';
             document.getElementById('mgr-content-box').style.display = tab === 'box' ? 'flex' : 'none';
+            document.getElementById('mgr-content-skins').style.display = tab === 'skins' ? 'block' : 'none';
+
+            if (tab === 'item') renderManagerItemsList();
+            if (tab === 'box') renderManagerBoxesList();
         }
 
-        function toggleAllFoldersCollapse(type) {
-            const folders = getFolders(type);
-            const hasOpen = folders.some(f => !folderCollapseState[type][f]);
-            folders.forEach(f => {
-                folderCollapseState[type][f] = hasOpen;
-            });
-            if (type === 'item') renderManagerItemsList();
-            else renderManagerBoxesList();
-        }
-
-        function openManagerModal() {
+        function openMasterModal() {
             openModal('manager-modal');
-            renderManagerItemsList();
-            renderManagerBoxesList();
+            switchMgrTab(activeMgrTab);
         }
 
         function toggleRefTray() {
@@ -820,18 +1399,22 @@
         function updatePresetSelectHighlight() {
             const itemSel = document.getElementById('item-preset-select');
             if (itemSel) {
-                if (itemSel.value !== 'custom_item') {
-                    itemSel.classList.add('preset-selected-active');
-                } else {
+                if (itemSel.value === 'custom_item') {
                     itemSel.classList.remove('preset-selected-active');
+                    itemSel.classList.add('custom-active');
+                } else {
+                    itemSel.classList.remove('custom-active');
+                    itemSel.classList.add('preset-selected-active');
                 }
             }
             const boxSel = document.getElementById('box-preset-select');
             if (boxSel) {
-                if (boxSel.value !== 'custom') {
-                    boxSel.classList.add('preset-selected-active');
-                } else {
+                if (boxSel.value === 'custom') {
                     boxSel.classList.remove('preset-selected-active');
+                    boxSel.classList.add('custom-active');
+                } else {
+                    boxSel.classList.remove('custom-active');
+                    boxSel.classList.add('preset-selected-active');
                 }
             }
         }
@@ -853,7 +1436,7 @@
                 items.forEach(it => {
                     const opt = document.createElement('option');
                     opt.value = it.key;
-                    opt.textContent = `${it.name}: ${it.dims[0]} × ${it.dims[1]} × ${it.dims[2]} mm`;
+                    opt.textContent = `${it.name}: ${toDisplay(it.dims[0])} × ${toDisplay(it.dims[1])} × ${toDisplay(it.dims[2])} ${curUnit}`;
                     optg.appendChild(opt);
                 });
                 boxSelect.insertBefore(optg, boxSelect.lastElementChild);
@@ -875,7 +1458,7 @@
                 items.forEach(it => {
                     const opt = document.createElement('option');
                     opt.value = it.key;
-                    opt.textContent = `${it.name} (${it.dims[0]} × ${it.dims[1]} × ${it.dims[2]} mm)`;
+                    opt.textContent = `${it.name} (${toDisplay(it.dims[0])} × ${toDisplay(it.dims[1])} × ${toDisplay(it.dims[2])} ${curUnit})`;
                     optg.appendChild(opt);
                 });
                 itemSelect.insertBefore(optg, itemSelect.lastElementChild);
@@ -954,6 +1537,8 @@
 
             for (const [folderName, items] of Object.entries(folders)) {
                 const isCollapsed = !!folderCollapseState.item[folderName];
+                const locked = isFolderLocked('item', folderName);
+
                 const folderCard = document.createElement('div');
                 folderCard.className = 'mgr-folder-block';
 
@@ -964,35 +1549,40 @@
                     <div class="mgr-item-card">
                         <div class="mgr-field-row">
                             <div class="input-with-label">
-                                <select class="sci-select" id="mgr-edit-item-folder-${it.key}" onchange="onItemRowFolderChange('${it.key}', this.value)">
+                                <select class="sci-select" id="mgr-edit-item-folder-${it.key}" ${locked ? 'disabled' : ''} onchange="onItemRowFolderChange('${it.key}', this.value)">
                                     ${folderOptions}
                                 </select>
                                 <span class="suffix-text">分类</span>
                             </div>
                         </div>
                         <div class="mgr-field-row">
-                            <input type="text" class="sci-input mgr-name-input" id="mgr-edit-item-name-${it.key}" value="${it.name}" placeholder="物品名称">
+                            <input type="text" class="sci-input mgr-name-input" id="mgr-edit-item-name-${it.key}" value="${it.name}" ${locked ? 'disabled' : ''} placeholder="物品名称">
                             <div class="btn-group">
-                                <button class="sci-btn-mini danger" onclick="mgrDeleteItem('${it.key}')">删除</button>
+                                <button class="sci-btn-mini danger" ${locked ? 'disabled style="opacity:0.35;cursor:not-allowed;"' : ''} onclick="mgrDeleteItem('${it.key}', '${folderName}')">删除</button>
                                 <button class="sci-btn-mini" onclick="mgrApplyItem('${it.key}')">使用</button>
-                                <button class="sci-btn-mini sci-btn-primary" onclick="mgrSaveItemEdit('${it.key}')">保存</button>
+                                <button class="sci-btn-mini sci-btn-primary" ${locked ? 'disabled style="opacity:0.35;cursor:not-allowed;"' : ''} onclick="mgrSaveItemEdit('${it.key}', '${folderName}')">保存</button>
                             </div>
                         </div>
                         <div class="grid-3col">
-                            <div class="input-with-label"><input type="number" class="sci-input" id="mgr-edit-item-l-${it.key}" value="${toDisplay(it.dims[0])}"><span class="suffix-text">长 <b class="u-lab">${curUnit}</b></span></div>
-                            <div class="input-with-label"><input type="number" class="sci-input" id="mgr-edit-item-w-${it.key}" value="${toDisplay(it.dims[1])}"><span class="suffix-text">宽 <b class="u-lab">${curUnit}</b></span></div>
-                            <div class="input-with-label"><input type="number" class="sci-input" id="mgr-edit-item-h-${it.key}" value="${toDisplay(it.dims[2])}"><span class="suffix-text">高 <b class="u-lab">${curUnit}</b></span></div>
+                            <div class="input-with-label"><input type="number" class="sci-input" id="mgr-edit-item-l-${it.key}" value="${toDisplay(it.dims[0])}" ${locked ? 'disabled' : ''}><span class="suffix-text">长 <b class="u-lab">${curUnit}</b></span></div>
+                            <div class="input-with-label"><input type="number" class="sci-input" id="mgr-edit-item-w-${it.key}" value="${toDisplay(it.dims[1])}" ${locked ? 'disabled' : ''}><span class="suffix-text">宽 <b class="u-lab">${curUnit}</b></span></div>
+                            <div class="input-with-label"><input type="number" class="sci-input" id="mgr-edit-item-h-${it.key}" value="${toDisplay(it.dims[2])}" ${locked ? 'disabled' : ''}><span class="suffix-text">高 <b class="u-lab">${curUnit}</b></span></div>
                         </div>
                     </div>
                 `}).join('');
 
                 folderCard.innerHTML = `
                     <div class="mgr-folder-title">
-                        <div style="display:flex; align-items:center; gap:6px; flex:1;" onclick="toggleFolderCollapse('item', '${folderName}')">
+                        <div style="display:flex; align-items:center; gap:6px; flex:1; cursor:pointer;" onclick="toggleFolderCollapse('item', '${folderName}')">
                             <span>${isCollapsed ? '▶' : '▼'} 📁 <b>${folderName}</b></span>
-                            <span style="font-size:0.68rem; color:var(--text-muted); font-weight:normal;">(${items.length} 规格)</span>
+                            <span style="font-size:0.7rem; color:var(--text-muted); font-weight:normal;">(${items.length} 规格)</span>
                         </div>
-                        <button class="sci-btn-mini" style="height:22px; min-height:22px; max-height:22px; font-size:0.65rem;" onclick="renameFolder('item', '${folderName}')">✏️ 改分类名</button>
+                        <div style="display:flex; align-items:center; gap:6px;">
+                            <button class="mgr-lock-btn ${locked ? 'locked' : 'unlocked'}" onclick="toggleFolderLock('item', '${folderName}', event)">
+                                <span>${locked ? '🔒' : '🔓 '}</span>
+                            </button>
+                            <button class="sci-btn-mini" style="height:22px !important; font-size:0.7rem;" ${locked ? 'disabled style="opacity:0.35;cursor:not-allowed;"' : ''} onclick="renameFolder('item', '${folderName}')">✏</button>
+                        </div>
                     </div>
                     <div class="mgr-folder-content ${isCollapsed ? 'collapsed' : ''}">${rowsHTML}</div>
                 `;
@@ -1033,6 +1623,8 @@
 
             for (const [folderName, items] of Object.entries(folders)) {
                 const isCollapsed = !!folderCollapseState.box[folderName];
+                const locked = isFolderLocked('box', folderName);
+
                 const folderCard = document.createElement('div');
                 folderCard.className = 'mgr-folder-block';
 
@@ -1043,35 +1635,40 @@
                     <div class="mgr-item-card">
                         <div class="mgr-field-row">
                             <div class="input-with-label">
-                                <select class="sci-select" id="mgr-edit-box-folder-${b.key}" onchange="onBoxRowFolderChange('${b.key}', this.value)">
+                                <select class="sci-select" id="mgr-edit-box-folder-${b.key}" ${locked ? 'disabled' : ''} onchange="onBoxRowFolderChange('${b.key}', this.value)">
                                     ${folderOptions}
                                 </select>
                                 <span class="suffix-text">分类</span>
                             </div>
                         </div>
                         <div class="mgr-field-row">
-                            <input type="text" class="sci-input mgr-name-input" id="mgr-edit-box-name-${b.key}" value="${b.name}" placeholder="纸箱名称">
+                            <input type="text" class="sci-input mgr-name-input" id="mgr-edit-box-name-${b.key}" value="${b.name}" ${locked ? 'disabled' : ''} placeholder="纸箱名称">
                             <div class="btn-group">
-                                <button class="sci-btn-mini danger" onclick="mgrDeleteBox('${b.key}')">删除</button>
+                                <button class="sci-btn-mini danger" ${locked ? 'disabled style="opacity:0.35;cursor:not-allowed;"' : ''} onclick="mgrDeleteBox('${b.key}', '${folderName}')">删除</button>
                                 <button class="sci-btn-mini" onclick="mgrApplyBox('${b.key}')">使用</button>
-                                <button class="sci-btn-mini sci-btn-primary" onclick="mgrSaveBoxEdit('${b.key}')">保存</button>
+                                <button class="sci-btn-mini sci-btn-primary" ${locked ? 'disabled style="opacity:0.35;cursor:not-allowed;"' : ''} onclick="mgrSaveBoxEdit('${b.key}', '${folderName}')">保存</button>
                             </div>
                         </div>
                         <div class="grid-3col">
-                            <div class="input-with-label"><input type="number" class="sci-input" id="mgr-edit-box-l-${b.key}" value="${toDisplay(b.dims[0])}"><span class="suffix-text">长 <b class="u-lab">${curUnit}</b></span></div>
-                            <div class="input-with-label"><input type="number" class="sci-input" id="mgr-edit-box-w-${b.key}" value="${toDisplay(b.dims[1])}"><span class="suffix-text">宽 <b class="u-lab">${curUnit}</b></span></div>
-                            <div class="input-with-label"><input type="number" class="sci-input" id="mgr-edit-box-h-${b.key}" value="${toDisplay(b.dims[2])}"><span class="suffix-text">高 <b class="u-lab">${curUnit}</b></span></div>
+                            <div class="input-with-label"><input type="number" class="sci-input" id="mgr-edit-box-l-${b.key}" value="${toDisplay(b.dims[0])}" ${locked ? 'disabled' : ''}><span class="suffix-text">长 <b class="u-lab">${curUnit}</b></span></div>
+                            <div class="input-with-label"><input type="number" class="sci-input" id="mgr-edit-box-w-${b.key}" value="${toDisplay(b.dims[1])}" ${locked ? 'disabled' : ''}><span class="suffix-text">宽 <b class="u-lab">${curUnit}</b></span></div>
+                            <div class="input-with-label"><input type="number" class="sci-input" id="mgr-edit-box-h-${b.key}" value="${toDisplay(b.dims[2])}" ${locked ? 'disabled' : ''}><span class="suffix-text">高 <b class="u-lab">${curUnit}</b></span></div>
                         </div>
                     </div>
                 `}).join('');
 
                 folderCard.innerHTML = `
                     <div class="mgr-folder-title">
-                        <div style="display:flex; align-items:center; gap:6px; flex:1;" onclick="toggleFolderCollapse('box', '${folderName}')">
+                        <div style="display:flex; align-items:center; gap:6px; flex:1; cursor:pointer;" onclick="toggleFolderCollapse('box', '${folderName}')">
                             <span>${isCollapsed ? '▶' : '▼'} 📁 <b>${folderName}</b></span>
-                            <span style="font-size:0.68rem; color:var(--text-muted); font-weight:normal;">(${items.length} 规格)</span>
+                            <span style="font-size:0.7rem; color:var(--text-muted); font-weight:normal;">(${items.length} 规格)</span>
                         </div>
-                        <button class="sci-btn-mini" style="height:22px; min-height:22px; max-height:22px; font-size:0.65rem;" onclick="renameFolder('box', '${folderName}')">✏️ 改分类名</button>
+                        <div style="display:flex; align-items:center; gap:6px;">
+                            <button class="mgr-lock-btn ${locked ? 'locked' : 'unlocked'}" onclick="toggleFolderLock('box', '${folderName}', event)">
+                                <span>${locked ? '🔒' : '🔓'}</span>
+                            </button>
+                            <button class="sci-btn-mini" style="height:22px !important; font-size:0.7rem;" ${locked ? 'disabled style="opacity:0.35;cursor:not-allowed;"' : ''} onclick="renameFolder('box', '${folderName}')">✏️</button>
+                        </div>
                     </div>
                     <div class="mgr-folder-content ${isCollapsed ? 'collapsed' : ''}">${rowsHTML}</div>
                 `;
@@ -1099,6 +1696,11 @@
         }
 
         async function renameFolder(type, oldName) {
+            if (isFolderLocked(type, oldName)) {
+                await sysAlert(`分类【${oldName}】处于锁定状态，请先点击 🔒 解锁后再重命名！`);
+                return;
+            }
+
             const newName = await sysPrompt(`请输入分类夹【${oldName}】的新名称:`, oldName);
             if (!newName || newName.trim() === '' || newName.trim() === oldName) return;
             const targetName = newName.trim();
@@ -1146,7 +1748,11 @@
             document.getElementById('mgr-add-item-h').value = '';
         }
 
-        function mgrSaveItemEdit(k) {
+        async function mgrSaveItemEdit(k, folderName) {
+            if (isFolderLocked('item', folderName)) {
+                await sysAlert('该分类处于锁定状态，请先解锁后再保存修改！');
+                return;
+            }
             const name = document.getElementById(`mgr-edit-item-name-${k}`).value.trim() || '未命名';
             const folder = document.getElementById(`mgr-edit-item-folder-${k}`).value;
             const l = toInternal(parseFloat(document.getElementById(`mgr-edit-item-l-${k}`).value) || 1);
@@ -1171,7 +1777,11 @@
             closeModal('manager-modal');
         }
 
-        async function mgrDeleteItem(k) {
+        async function mgrDeleteItem(k, folderName) {
+            if (isFolderLocked('item', folderName)) {
+                await sysAlert('该分类处于锁定状态，请先点击 🔒 解锁后再删除规格！');
+                return;
+            }
             const it = ITEM_PRESETS[k];
             const name = it ? it.name : '该规格';
             const confirmed = await sysConfirm(`确定要删除物品规格【${name}】吗？此操作不可撤销！`);
@@ -1184,7 +1794,7 @@
         }
 
         async function resetDefaultItems() {
-            const confirmed = await sysConfirm('确认恢复出厂默认物品？\n注：系统默认规格将复原，您自行添加的物品规格将安全保留！');
+            const confirmed = await sysConfirm('确认恢复默认物品？\n注：系统默认规格将复原，您自行添加的物品规格将安全保留！');
             if (confirmed) {
                 const userCustomItems = {};
                 for (const [k, v] of Object.entries(ITEM_PRESETS)) {
@@ -1223,7 +1833,11 @@
             document.getElementById('mgr-add-box-h').value = '';
         }
 
-        function mgrSaveBoxEdit(k) {
+        async function mgrSaveBoxEdit(k, folderName) {
+            if (isFolderLocked('box', folderName)) {
+                await sysAlert('该分类处于锁定状态，请先解锁后再保存修改！');
+                return;
+            }
             const name = document.getElementById(`mgr-edit-box-name-${k}`).value.trim() || '未命名箱';
             const folder = document.getElementById(`mgr-edit-box-folder-${k}`).value;
             const l = toInternal(parseFloat(document.getElementById(`mgr-edit-box-l-${k}`).value) || 1);
@@ -1247,7 +1861,11 @@
             closeModal('manager-modal');
         }
 
-        async function mgrDeleteBox(k) {
+        async function mgrDeleteBox(k, folderName) {
+            if (isFolderLocked('box', folderName)) {
+                await sysAlert('该分类处于锁定状态，请先点击 🔒 解锁后再删除规格！');
+                return;
+            }
             const b = BOX_PRESETS[k];
             const name = b ? b.name : '该规格';
             const confirmed = await sysConfirm(`确定要删除纸箱规格【${name}】吗？此操作不可撤销！`);
@@ -1346,6 +1964,7 @@
             document.querySelectorAll('.u-lab').forEach(el => el.textContent = u);
             updateInputDisplays(); 
             renderMultiItemsUI(); 
+            refreshPresetsDropdowns();
             if (document.getElementById('manager-modal').style.display === 'flex') {
                 renderManagerItemsList();
                 renderManagerBoxesList();
@@ -1463,13 +2082,13 @@
                 const row = document.createElement('div'); row.className = 'multi-item-card';
                 row.innerHTML = `
                     <div style="display:flex; justify-content:space-between; align-items:center; gap:4px;">
-                        <input type="text" class="sci-input" value="${it.name}" style="height:28px !important; font-weight:700; color:var(--cyan); flex:1;" onchange="updateMultiItemProp(${idx}, 'name', this.value)">
+                        <input type="text" class="sci-input" value="${it.name}" style="height:28px !important; font-weight:700; color:var(--antique); flex:1;" onchange="updateMultiItemProp(${idx}, 'name', this.value)">
                         <div class="segmented-control" style="max-width:110px;">
                             <button class="seg-btn ${it.rot==='flat'?'active':''}" onclick="setMultiItemRot(${idx}, 'flat')">平</button>
                             <button class="seg-btn ${it.rot==='stand'?'active':''}" onclick="setMultiItemRot(${idx}, 'stand')">立</button>
                             <button class="seg-btn ${it.rot==='side'?'active':''}" onclick="setMultiItemRot(${idx}, 'side')">侧</button>
                         </div>
-                        <button class="icon-btn" style="width:28px; height:28px !important; color:#ef4444;" onclick="removeMultiItemRow(${idx})">✕</button>
+                        <button class="sci-btn-mini danger" style="width:28px; height:28px !important; padding:0;" onclick="removeMultiItemRow(${idx})">✕</button>
                     </div>
                     <div class="grid-3col">
                         <div class="input-with-label"><input type="number" class="sci-input" value="${toDisplay(it.l)}" oninput="updateMultiItemProp(${idx}, 'l', this.value)"><span class="suffix-text">长 <b class="u-lab">${curUnit}</b></span></div>
@@ -1752,12 +2371,20 @@
         }
 
         function init3D() {
-            const container = document.getElementById('viewport-3d'); scene = new THREE.Scene(); scene.background = new THREE.Color(0xf1f5f9);
-            camera = new THREE.PerspectiveCamera(40, container.clientWidth/container.clientHeight, 1, 7000); camera.position.set(560, 520, 720);
-            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas3d'), antialias: true }); renderer.setSize(container.clientWidth, container.clientHeight); renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            const container = document.getElementById('viewport-3d');
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xF8F6F0);
+            
+            camera = new THREE.PerspectiveCamera(40, container.clientWidth/container.clientHeight, 1, 7000);
+            camera.position.set(560, 520, 720);
+            
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas3d'), antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             
             controls = new THREE.OrbitControls(camera, renderer.domElement); 
-            controls.enableDamping = true; controls.dampingFactor = 0.08;
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.08;
             controls.target.set(0, boxSize.h / 2, 0);
             controls.enablePan = true;
             controls.panSpeed = 1.0;
@@ -1778,13 +2405,38 @@
                 resetCameraView();
             });
 
-            scene.add(new THREE.AmbientLight(0xffffff, 0.95)); const dirLight = new THREE.DirectionalLight(0xffffff, 0.65); dirLight.position.set(400, 800, 400); scene.add(dirLight);
-            gridHelper = new THREE.GridHelper(1600, 32, 0x0284c7, 0xcbd5e1); gridHelper.position.y = 0; gridHelper.material.transparent = true; gridHelper.material.opacity = 0.28; scene.add(gridHelper);
+            scene.add(new THREE.AmbientLight(0xffffff, 0.95));
+            const dirLight = new THREE.DirectionalLight(0xfff7ed, 0.65);
+            dirLight.position.set(400, 800, 400);
+            scene.add(dirLight);
 
-            boxGroup=new THREE.Group(); itemsGroup=new THREE.Group(); padGroup=new THREE.Group(); refsGroup=new THREE.Group();
-            scene.add(boxGroup); scene.add(itemsGroup); scene.add(padGroup); scene.add(refsGroup);
+            gridHelper = new THREE.GridHelper(1600, 32, 0x9B7844, 0xE5DFD3);
+            gridHelper.position.y = 0;
+            gridHelper.material.transparent = true;
+            gridHelper.material.opacity = 0.35;
+            scene.add(gridHelper);
+
+            boxGroup = new THREE.Group(); 
+            itemsGroup = new THREE.Group(); 
+            padGroup = new THREE.Group(); 
+            refsGroup = new THREE.Group();
+
+            itemsGroup.renderOrder = 1;
+            padGroup.renderOrder = 2;
+            boxGroup.renderOrder = 10;
+
+            scene.add(boxGroup); 
+            scene.add(itemsGroup); 
+            scene.add(padGroup); 
+            scene.add(refsGroup);
+            
             rebuildRefObjects();
-            window.addEventListener('resize', () => { camera.aspect = container.clientWidth / container.clientHeight; camera.updateProjectionMatrix(); renderer.setSize(container.clientWidth, container.clientHeight); });
+            
+            window.addEventListener('resize', () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
         }
 
         function resetCameraView() {
@@ -1795,32 +2447,88 @@
             controls.update();
         }
 
+        /* 生成纯白高定黑金/深色纸箱材质 */
         function createSmartBoxMaterials(itemName, L, W, H, baseColor, isCarton) {
-            const txtColor = isCarton ? "#1e293b" : "#0f172a";
+            const txtColor = "#181614";
 
             function makeTex(w_mm, h_mm, labelX, labelY, labelCenter) {
-                let cw = Math.max(512, Math.round(w_mm * 8)); let ch = Math.max(512, Math.round(h_mm * 8));
+                let cw = Math.max(512, Math.round(w_mm * 8));
+                let ch = Math.max(512, Math.round(h_mm * 8));
                 if(cw > 2048 || ch > 2048) { const ratio = 2048 / Math.max(cw, ch); cw = Math.round(cw * ratio); ch = Math.round(ch * ratio); }
                 
-                const canvas = document.createElement('canvas'); canvas.width = cw; canvas.height = ch;
+                const canvas = document.createElement('canvas');
+                canvas.width = cw; canvas.height = ch;
                 const ctx = canvas.getContext('2d');
-                ctx.fillStyle = baseColor; ctx.fillRect(0, 0, cw, ch);
-                ctx.strokeStyle = isCarton ? "rgba(0,0,0,0.2)" : "rgba(0,0,0,0.1)"; ctx.lineWidth = 8; ctx.strokeRect(4, 4, cw-8, ch-8);
+                ctx.fillStyle = baseColor;
+                ctx.fillRect(0, 0, cw, ch);
                 
-                ctx.fillStyle = txtColor; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+                // 黑金双重优雅细框线
+                if (isCarton) {
+                    if (currentSkin === 'editorial') {
+                        ctx.strokeStyle = "#9B7844"; // 外层细金线
+                        ctx.lineWidth = 6;
+                        ctx.strokeRect(6, 6, cw-12, ch-12);
+                        ctx.strokeStyle = "#181614"; // 内层黑墨线
+                        ctx.lineWidth = 2;
+                        ctx.strokeRect(12, 12, cw-24, ch-24);
+                    } else if (currentSkin === 'dark') {
+                        ctx.strokeStyle = "#E3B341";
+                        ctx.lineWidth = 6;
+                        ctx.strokeRect(6, 6, cw-12, ch-12);
+                        ctx.strokeStyle = "#181614";
+                        ctx.lineWidth = 2;
+                        ctx.strokeRect(12, 12, cw-24, ch-24);
+                    } else {
+                        ctx.strokeStyle = "#334155";
+                        ctx.lineWidth = 6;
+                        ctx.strokeRect(6, 6, cw-12, ch-12);
+                    }
+                } else {
+                    ctx.strokeStyle = "rgba(24, 22, 20, 0.12)";
+                    ctx.lineWidth = 4;
+                    ctx.strokeRect(4, 4, cw-8, ch-8);
+                }
+                
+                ctx.fillStyle = txtColor;
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
                 const minDim = Math.min(cw, ch);
                 
-                if (labelCenter) { ctx.font = `bold ${Math.max(26, minDim * 0.16)}px sans-serif`; ctx.fillText(labelCenter, cw/2, ch/2); }
+                if (labelCenter) {
+                    ctx.font = `bold ${Math.max(26, minDim * 0.15)}px serif`;
+                    ctx.fillText(labelCenter, cw/2, ch/2);
+                }
                 
-                const eFont = Math.max(18, minDim * 0.1); ctx.font = `bold ${eFont}px monospace`;
-                if (labelX) { ctx.fillText(labelX, cw/2, ch - eFont - 10); }
-                if (labelY) { ctx.save(); ctx.translate(eFont + 10, ch/2); ctx.rotate(-Math.PI/2); ctx.fillText(labelY, 0, 0); ctx.restore(); }
+                const eFont = Math.max(18, minDim * 0.09);
+                ctx.font = `600 ${eFont}px monospace`;
+                if (labelX) { ctx.fillText(labelX, cw/2, ch - eFont - 12); }
+                if (labelY) { ctx.save(); ctx.translate(eFont + 12, ch/2); ctx.rotate(-Math.PI/2); ctx.fillText(labelY, 0, 0); ctx.restore(); }
                 
                 const tex = new THREE.CanvasTexture(canvas);
-                return new THREE.MeshStandardMaterial({ map: tex, roughness: isCarton?0.8:0.4, transparent: isCarton && viewMode === 'nest', opacity: isCarton && viewMode === 'nest' ? 0.6 : 1.0, side: isCarton ? THREE.DoubleSide : THREE.FrontSide });
+                return new THREE.MeshStandardMaterial({
+                    map: tex,
+                    roughness: isCarton ? 0.8 : 0.4,
+                    transparent: isCarton && viewMode === 'nest',
+                    opacity: isCarton && viewMode === 'nest' ? 0.7 : 1.0,
+                    side: isCarton ? THREE.DoubleSide : THREE.FrontSide,
+                    depthWrite: !(isCarton && viewMode === 'nest'),
+                    polygonOffset: true,
+                    polygonOffsetFactor: 1,
+                    polygonOffsetUnits: 1
+                });
             }
 
-            const plainMat = new THREE.MeshStandardMaterial({ color: baseColor, roughness: isCarton?0.8:0.4, transparent: isCarton && viewMode === 'nest', opacity: isCarton && viewMode === 'nest' ? 0.6 : 1.0, side: isCarton ? THREE.DoubleSide : THREE.FrontSide });
+            const plainMat = new THREE.MeshStandardMaterial({
+                color: baseColor,
+                roughness: isCarton ? 0.8 : 0.4,
+                transparent: isCarton && viewMode === 'nest',
+                opacity: isCarton && viewMode === 'nest' ? 0.7 : 1.0,
+                side: isCarton ? THREE.DoubleSide : THREE.FrontSide,
+                depthWrite: !(isCarton && viewMode === 'nest'),
+                polygonOffset: true,
+                polygonOffsetFactor: 1,
+                polygonOffsetUnits: 1
+            });
             const matRight = makeTex(W, H, `宽:${toDisplay(W)}`, `高:${toDisplay(H)}`, null);
             const matTop = makeTex(L, W, `长:${toDisplay(L)}`, `宽:${toDisplay(W)}`, itemName);
             const matFront = makeTex(L, H, `长:${toDisplay(L)}`, `高:${toDisplay(H)}`, null);
@@ -1841,11 +2549,36 @@
             const boxMats = createSmartBoxMaterials(currentBoxName, boxSize.l, boxSize.w, boxSize.h, boxCol, true);
             const boxMesh = new THREE.Mesh(boxGeo, boxMats);
             boxMesh.position.set(0, boxSize.h / 2, 0);
-            boxMesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(boxGeo), new THREE.LineBasicMaterial({ color: isDarkMode?0x38bdf8:0x8c5a2b, linewidth: 2 })));
+            
+            // 描边颜色全面适配黑金与石墨
+            let edgeColor;
+            if (currentSkin === 'editorial') {
+                edgeColor = 0x181614; // 高级黑金描边
+            } else if (currentSkin === 'dark') {
+                edgeColor = 0xE3B341; // 曜金醒目描边
+            } else {
+                edgeColor = 0x334155; // 极简石墨色（彻底剔除蓝色描边）
+            }
+
+            const boxEdges = new THREE.LineSegments(
+                new THREE.EdgesGeometry(boxGeo), 
+                new THREE.LineBasicMaterial({ color: edgeColor, linewidth: 2, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 })
+            );
+            boxMesh.add(boxEdges);
             boxGroup.add(boxMesh);
 
             const fT = 2;
-            const fMat = new THREE.MeshStandardMaterial({ color: boxCol, roughness: 0.8, side: THREE.DoubleSide, transparent: true, opacity: viewMode === 'nest' ? 0.6 : 1.0 });
+            const fMat = new THREE.MeshStandardMaterial({ 
+                color: boxCol, 
+                roughness: 0.8, 
+                side: THREE.DoubleSide, 
+                transparent: viewMode === 'nest', 
+                opacity: viewMode === 'nest' ? 0.7 : 1.0,
+                depthWrite: viewMode !== 'nest',
+                polygonOffset: true,
+                polygonOffsetFactor: 1,
+                polygonOffsetUnits: 1
+            });
             
             const hF = new THREE.Group(); hF.position.set(0, boxSize.h, boxSize.w/2); const mF = new THREE.Mesh(new THREE.BoxGeometry(boxSize.l, fT, boxSize.w/2), fMat); mF.position.set(0, fT/2, -boxSize.w/4); hF.add(mF); boxGroup.add(hF);
             const hB = new THREE.Group(); hB.position.set(0, boxSize.h, -boxSize.w/2); const mB = new THREE.Mesh(new THREE.BoxGeometry(boxSize.l, fT, boxSize.w/2), fMat); mB.position.set(0, fT/2, boxSize.w/4); hB.add(mB); boxGroup.add(hB);
@@ -1856,21 +2589,22 @@
             else if (flapState === 'half') { const angHalf = Math.PI * 0.75; hF.rotation.x = angHalf; hB.rotation.x = -angHalf; hL.rotation.z = angHalf; hR.rotation.z = -angHalf; } 
             else if (flapState === 'open') { const angOpen = Math.PI * 1.3; hF.rotation.x = angOpen; hB.rotation.x = -angOpen; hL.rotation.z = angOpen; hR.rotation.z = -angOpen; }
 
-            tapeMesh = new THREE.Mesh(new THREE.BoxGeometry(boxSize.l+6, 1.5, 36), new THREE.MeshStandardMaterial({ color: 0xeab308, roughness: 0.3, transparent: true, opacity: 0.95 }));
+            const tapeCol = currentSkin === 'dark' ? 0xE3B341 : (currentSkin === 'editorial' ? 0xB89047 : 0x475569);
+            tapeMesh = new THREE.Mesh(new THREE.BoxGeometry(boxSize.l+6, 1.5, 36), new THREE.MeshStandardMaterial({ color: tapeCol, roughness: 0.3, transparent: true, opacity: 0.95 }));
             tapeMesh.position.set(0, boxSize.h+fT+1, 0);
             boxGroup.add(tapeMesh);
             tapeMesh.visible = (flapState === 'closed' && tapeEnabled);
 
-            const edgeMat = new THREE.LineBasicMaterial({ color: 0x64748b, linewidth: 1.5 });
+            const edgeMat = new THREE.LineBasicMaterial({ color: 0x78716c, linewidth: 1.5, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
             let { totL, totW, totH } = getEffectiveItemBoundingBox();
 
             itemsGroup.position.y = FLOOR_OFFSET;
 
             const padMaterial = new THREE.MeshStandardMaterial({
-                color: 0x0284c7,
+                color: currentSkin === 'tech' ? 0x64748b : 0x9B7844,
                 transparent: true,
-                opacity: 0.25,
-                roughness: 0.1,
+                opacity: 0.2,
+                roughness: 0.2,
                 metalness: 0.1,
                 depthWrite: false
             });
@@ -1901,7 +2635,7 @@
                                 const pGeo = new THREE.BoxGeometry(blockL, blockH, blockW);
                                 const pMesh = new THREE.Mesh(pGeo, padMaterial);
                                 pMesh.position.set(px, py, pz);
-                                pMesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(pGeo), new THREE.LineBasicMaterial({ color: 0x0284c7, opacity: 0.4, transparent: true })));
+                                pMesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(pGeo), new THREE.LineBasicMaterial({ color: edgeColor, opacity: 0.45, transparent: true })));
                                 padGroup.add(pMesh);
                             }
                         }
@@ -1927,7 +2661,7 @@
                         const pGeo = new THREE.BoxGeometry(prL, prH, prW);
                         const pMesh = new THREE.Mesh(pGeo, padMaterial);
                         pMesh.position.set(px, py, pz);
-                        pMesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(pGeo), new THREE.LineBasicMaterial({ color: 0x0284c7, opacity: 0.4, transparent: true })));
+                        pMesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(pGeo), new THREE.LineBasicMaterial({ color: edgeColor, opacity: 0.45, transparent: true })));
                         padGroup.add(pMesh);
                     }
                 });
@@ -1957,17 +2691,17 @@
             while(refsGroup.children.length > 0) refsGroup.remove(refsGroup.children[0]);
             
             const pGeo = new THREE.BoxGeometry(refPhoneSize.w, refPhoneSize.h, refPhoneSize.l);
-            const pMat = new THREE.MeshStandardMaterial({ color: 0x18181b, roughness: 0.2, metalness: 0.8 });
+            const pMat = new THREE.MeshStandardMaterial({ color: 0x181614, roughness: 0.2, metalness: 0.8 });
             const phone = new THREE.Mesh(pGeo, pMat); phone.name = "phone"; phone.position.y = refPhoneSize.h/2; 
-            phone.add(new THREE.LineSegments(new THREE.EdgesGeometry(pGeo), new THREE.LineBasicMaterial({ color: 0x52525b })));
+            phone.add(new THREE.LineSegments(new THREE.EdgesGeometry(pGeo), new THREE.LineBasicMaterial({ color: 0x9B7844 })));
             refsGroup.add(phone);
 
             const canGroup = new THREE.Group(); canGroup.name = "can";
-            const canBody = new THREE.Mesh(new THREE.CylinderGeometry(33, 31, 100, 32), new THREE.MeshStandardMaterial({ color: 0xdc2626, roughness: 0.2, metalness: 0.6 }));
+            const canBody = new THREE.Mesh(new THREE.CylinderGeometry(33, 31, 100, 32), new THREE.MeshStandardMaterial({ color: 0xA32A24, roughness: 0.2, metalness: 0.6 }));
             canBody.position.y = 50; canGroup.add(canBody);
-            const canRim = new THREE.Mesh(new THREE.CylinderGeometry(28, 33, 8, 32), new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.1, metalness: 0.9 }));
+            const canRim = new THREE.Mesh(new THREE.CylinderGeometry(28, 33, 8, 32), new THREE.MeshStandardMaterial({ color: 0xE5DFD3, roughness: 0.1, metalness: 0.9 }));
             canRim.position.y = 104; canGroup.add(canRim);
-            const tabMesh = new THREE.Mesh(new THREE.TorusGeometry(5, 1.2, 8, 16), new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.1, metalness: 0.9 }));
+            const tabMesh = new THREE.Mesh(new THREE.TorusGeometry(5, 1.2, 8, 16), new THREE.MeshStandardMaterial({ color: 0xE5DFD3, roughness: 0.1, metalness: 0.9 }));
             tabMesh.rotation.x = Math.PI / 2; tabMesh.position.set(0, 108.5, -4); canGroup.add(tabMesh);
             refsGroup.add(canGroup);
 
@@ -1984,21 +2718,117 @@
             if(a) a.visible=document.getElementById('ref-a4').checked;
         }
 
-        function toggleTheme() {
-            isDarkMode = !isDarkMode;
-            document.body.classList.toggle('dark-mode', isDarkMode); 
-            scene.background = new THREE.Color(isDarkMode?0x090d16:0xf1f5f9);
-            gridHelper.material.color.setHex(isDarkMode?0x38bdf8:0x0284c7);
-            document.getElementById('picker-bg').value=isDarkMode?'#090d16':'#f1f5f9';
-            document.getElementById('picker-box').value=isDarkMode?'#b97a44':'#c58f59';
-            document.getElementById('picker-item').value=isDarkMode?'#cbd5e1':'#ffffff';
+        function setSkinMode(skin) {
+            currentSkin = skin;
+            document.body.classList.remove('skin-editorial', 'skin-dark', 'skin-tech');
+            document.body.classList.add(`skin-${skin}`);
+            
+            document.querySelectorAll('.skin-card-item').forEach(el => el.classList.remove('active'));
+            const activeCard = document.getElementById(`skin-btn-${skin}`);
+            if (activeCard) activeCard.classList.add('active');
+
+            if (skin === 'editorial') {
+                scene.background = new THREE.Color(0xF8F6F0);
+                gridHelper.material.color.setHex(0x9B7844);
+                document.getElementById('picker-bg').value = '#F8F6F0';
+                document.getElementById('picker-box').value = '#FFFFFF'; // 老钱纯白纸箱
+                document.getElementById('picker-item').value = '#EBE7DF';
+            } else if (skin === 'dark') {
+                scene.background = new THREE.Color(0x0E1217);
+                gridHelper.material.color.setHex(0xE3B341);
+                document.getElementById('picker-bg').value = '#0E1217';
+                document.getElementById('picker-box').value = '#FFFFFF'; // 曜黑高辨识纯白箱
+                document.getElementById('picker-item').value = '#212631';
+            } else {
+                scene.background = new THREE.Color(0xF3F4F6);
+                gridHelper.material.color.setHex(0x334155);
+                document.getElementById('picker-bg').value = '#F3F4F6';
+                document.getElementById('picker-box').value = '#FFFFFF'; // 极简纯白纸箱
+                document.getElementById('picker-item').value = '#CBD5E1';
+            }
             rebuild3D();
         }
 
-        function applyCustomColors() { scene.background = new THREE.Color(document.getElementById('picker-bg').value); rebuild3D(); }
-        function setViewMode(m) { viewMode = m; document.getElementById('view-nest').classList.toggle('active', m==='nest'); document.getElementById('view-side').classList.toggle('active', m==='side'); rebuild3D(); }
-        function toggleAutoRotate() { controls.autoRotate = !controls.autoRotate; document.getElementById('btn-autorotate').classList.toggle('active', controls.autoRotate); }
-        function animate() { requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); }
+        function togglePolkaLayer(checked) {
+            document.getElementById('polkaPatternLayer').style.display = checked ? 'block' : 'none';
+        }
+
+        function toggleDustLayer(checked) {
+            dustActive = checked;
+            document.getElementById('dustCanvas').style.display = checked ? 'block' : 'none';
+        }
+
+        function applyCustomColors() {
+            scene.background = new THREE.Color(document.getElementById('picker-bg').value);
+            rebuild3D();
+        }
+
+        function setViewMode(m) {
+            viewMode = m;
+            document.getElementById('view-nest').classList.toggle('active', m==='nest');
+            document.getElementById('view-side').classList.toggle('active', m==='side');
+            rebuild3D();
+        }
+
+        function toggleAutoRotate() {
+            controls.autoRotate = !controls.autoRotate;
+            document.getElementById('btn-autorotate').classList.toggle('active', controls.autoRotate);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        let dustActive = true;
+        let particles = [];
+        function initDustCanvas() {
+            const canvas = document.getElementById('dustCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            particles = [];
+            for (let i = 0; i < 35; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2.0 + 0.6,
+                    vx: (Math.random() - 0.5) * 0.35,
+                    vy: Math.random() * 0.45 + 0.15,
+                    alpha: Math.random() * 0.35 + 0.2
+                });
+            }
+
+            function render() {
+                if (dustActive) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = currentSkin === 'dark' ? '#E3B341' : '#9B7844';
+
+                    particles.forEach(p => {
+                        ctx.globalAlpha = p.alpha;
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                        ctx.fill();
+
+                        p.x += p.vx;
+                        p.y -= p.vy;
+
+                        if (p.y < 0) p.y = canvas.height;
+                        if (p.x < 0) p.x = canvas.width;
+                        if (p.x > canvas.width) p.x = 0;
+                    });
+                }
+                requestAnimationFrame(render);
+            }
+            render();
+        }
     </script>
 </body>
 </html>
