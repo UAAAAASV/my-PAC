@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -35,7 +34,25 @@
             --font-sans: "Plus Jakarta Sans", -apple-system, sans-serif;
         }
 
-        /* 极高辨识度暗夜金模式 */
+        body.skin-editorial {
+            --bg-base: #F8F6F0;
+            --panel-bg: #FFFFFF;
+            --panel-border: #E5DFD3;
+            --card-bg: #FAF9F5;
+            --card-border: #E5DFD3;
+            --input-bg: #FFFFFF;
+            --ink: #181614;
+            --antique: #9B7844;
+            --antique-hover: #7A5E33;
+            --antique-glow: rgba(155, 120, 68, 0.18);
+            --gilded: #B89047;
+            --madder: #A32A24;
+            --papershadow: #EBE5D8;
+            --text-main: #181614;
+            --text-muted: #78716c;
+            --box-shadow-chic: 3px 4px 0px 0px #EBE5D8;
+        }
+
         body.skin-dark {
             --bg-base: #0E1217;
             --panel-bg: #161B22;
@@ -55,15 +72,14 @@
             --box-shadow-chic: 3px 4px 0px 0px #010409;
         }
 
-        /* 极简白模式 */
         body.skin-tech {
             --bg-base: #F3F4F6;
             --panel-bg: #FFFFFF;
             --panel-border: #E2E8F0;
             --card-bg: #F8FAFC;
-            --card-border: #E2E8F0;
+            --card-border: #CBD5E1;
             --input-bg: #FFFFFF;
-            --ink: #0F172A;
+            --ink: #334155;
             --antique: #334155;
             --antique-hover: #1E293B;
             --antique-glow: rgba(51, 65, 85, 0.15);
@@ -73,6 +89,44 @@
             --text-main: #0F172A;
             --text-muted: #64748B;
             --box-shadow-chic: 3px 4px 0px 0px #E2E8F0;
+        }
+
+        body.skin-sage {
+            --bg-base: #EFF3EF;
+            --panel-bg: #FAFBF9;
+            --panel-border: #D1DCD1;
+            --card-bg: #F3F6F3;
+            --card-border: #D1DCD1;
+            --input-bg: #FFFFFF;
+            --ink: #3B5A45;
+            --antique: #4D735B;
+            --antique-hover: #385642;
+            --antique-glow: rgba(77, 115, 91, 0.2);
+            --gilded: #4D735B;
+            --madder: #C05646;
+            --papershadow: #D9E3D9;
+            --text-main: #243329;
+            --text-muted: #6B7F70;
+            --box-shadow-chic: 3px 4px 0px 0px #D9E3D9;
+        }
+
+        body.skin-apricot {
+            --bg-base: #FBF6EE;
+            --panel-bg: #FFFDF9;
+            --panel-border: #EDE0CE;
+            --card-bg: #F8F1E4;
+            --card-border: #EDE0CE;
+            --input-bg: #FFFFFF;
+            --ink: #A25A38;
+            --antique: #B86B43;
+            --antique-hover: #965330;
+            --antique-glow: rgba(184, 107, 67, 0.2);
+            --gilded: #B86B43;
+            --madder: #B33927;
+            --papershadow: #EADBC5;
+            --text-main: #3D291D;
+            --text-muted: #8F7666;
+            --box-shadow-chic: 3px 4px 0px 0px #EADBC5;
         }
 
         *, *::-webkit-scrollbar {
@@ -88,8 +142,8 @@
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
 
         ::selection {
-            background-color: var(--text-main);
-            color: var(--panel-bg);
+            background-color: var(--antique);
+            color: #FFFFFF;
         }
 
         body {
@@ -103,26 +157,12 @@
             position: relative;
         }
 
-        #polkaPatternLayer {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 1;
-            background-image: radial-gradient(rgba(155, 120, 68, 0.14) 1.2px, transparent 1.2px);
-            background-size: 26px 26px;
-            animation: floatDots 40s linear infinite;
-        }
-        @keyframes floatDots {
-            0% { background-position: 0 0; }
-            100% { background-position: 52px 104px; }
-        }
-
         #dustCanvas {
             position: fixed;
             inset: 0;
             pointer-events: none;
             z-index: 2;
-            opacity: 0.7;
+            opacity: 0.9;
         }
 
         input[type=number]::-webkit-inner-spin-button, 
@@ -171,7 +211,6 @@
             gap: 6px;
         }
 
-        /* 设置按钮严格与单位切换等高、尺寸对称 */
         .icon-btn {
             background: var(--card-bg);
             border: 1px solid var(--panel-border);
@@ -222,8 +261,9 @@
             justify-content: center;
         }
         .unit-btn.active {
-            background: var(--text-main);
-            color: var(--panel-bg);
+            background: var(--antique) !important;
+            color: #FFFFFF !important;
+            font-weight: 700;
         }
 
         .hud-content {
@@ -232,6 +272,7 @@
             flex-direction: column;
             gap: 10px;
             width: 100%;
+            overflow-x: hidden;
         }
 
         .sci-card {
@@ -245,6 +286,8 @@
             box-shadow: var(--box-shadow-chic);
             position: relative;
             transition: all 0.25s;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .card-head {
@@ -265,6 +308,7 @@
             display: flex;
             flex-direction: column;
             gap: 2px;
+            width: 100%;
         }
         .field-label {
             font-family: var(--font-serif);
@@ -276,14 +320,16 @@
         .grid-3col {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 5px;
+            gap: 4px;
             width: 100%;
+            box-sizing: border-box;
         }
 
         .input-with-label {
             display: flex;
             align-items: center;
             width: 100%;
+            min-width: 0;
             background: var(--input-bg);
             border: 1px solid var(--card-border);
             border-radius: var(--btn-radius);
@@ -291,41 +337,36 @@
             overflow: hidden;
             transition: all 0.2s;
             box-sizing: border-box;
+            position: relative;
         }
         .input-with-label:focus-within {
             border-color: var(--antique);
             box-shadow: 0 0 0 2px var(--antique-glow);
         }
 
-        .input-with-label input.sci-input,
-        .input-with-label select.sci-select {
+        .input-with-label input.sci-input {
             flex: 1;
             border: none !important;
             background: transparent !important;
             height: 100% !important;
             min-width: 0;
-            padding: 0 6px;
+            padding: 0 4px;
             color: var(--text-main);
             font-family: var(--font-sans);
-            font-size: 0.8rem;
+            font-size: 0.76rem;
             font-weight: 600;
             outline: none !important;
             box-shadow: none !important;
             text-align: center;
             box-sizing: border-box;
         }
-        .input-with-label select.sci-select {
-            text-align: left;
-            padding: 0 8px;
-            font-size: 0.76rem;
-        }
 
         .input-with-label .suffix-text {
             background: var(--card-bg);
             border-left: 1px solid var(--card-border);
-            padding: 0 6px;
+            padding: 0 4px;
             font-family: var(--font-serif);
-            font-size: 0.65rem;
+            font-size: 0.62rem;
             color: var(--text-muted);
             font-weight: 600;
             display: flex;
@@ -335,15 +376,17 @@
             white-space: nowrap;
             pointer-events: none;
             user-select: none;
+            flex-shrink: 0;
         }
         .suffix-text b.u-lab {
             font-family: var(--font-sans);
-            font-size: 0.6rem !important;
+            font-size: 0.58rem !important;
             font-weight: 600;
+            color: var(--text-main);
             margin-left: 2px;
         }
 
-        .sci-input, select.sci-select {
+        .sci-input {
             height: var(--btn-height) !important;
             background: var(--input-bg);
             border: 1px solid var(--card-border);
@@ -357,18 +400,98 @@
             transition: all 0.2s;
             width: 100%;
         }
-        .sci-input:focus, select.sci-select:focus {
+        .sci-input:focus {
             border-color: var(--antique);
             box-shadow: 0 0 0 2px var(--antique-glow);
         }
 
-        /* 选中或自定义均享受主题变色 */
-        select.sci-select.preset-selected-active,
-        select.sci-select.custom-active {
-            border-color: var(--antique) !important;
-            background-color: var(--card-bg) !important;
+        /* 预设选择器：金色边框、金色文本、金色箭头（完全契合您的截图） */
+        .custom-select-trigger {
+            height: var(--btn-height);
+            background: var(--input-bg);
+            border: 1px solid var(--antique) !important;
+            border-radius: var(--btn-radius);
+            padding: 0 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: var(--font-sans);
+            font-size: 0.78rem;
+            font-weight: 700;
             color: var(--antique) !important;
-            font-weight: 700 !important;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .custom-select-trigger:hover, .custom-select-trigger:focus {
+            border-color: var(--antique) !important;
+            box-shadow: 0 0 0 2px var(--antique-glow);
+        }
+        .custom-select-trigger .sel-arrow {
+            font-size: 0.65rem;
+            color: var(--antique) !important;
+            margin-left: 6px;
+        }
+        .custom-select-trigger.active-preset {
+            border-color: var(--antique) !important;
+            color: var(--antique) !important;
+            font-weight: 700;
+        }
+        .custom-select-trigger span {
+            color: var(--antique) !important;
+        }
+
+        .combo-box-wrapper {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            height: var(--btn-height);
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--btn-radius);
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+        .combo-box-wrapper:focus-within {
+            border-color: var(--antique);
+            box-shadow: 0 0 0 2px var(--antique-glow);
+        }
+        .combo-name-input {
+            flex: 1;
+            min-width: 0;
+            height: 100% !important;
+            border: none !important;
+            background: transparent !important;
+            outline: none !important;
+            box-shadow: none !important;
+            padding: 0 6px;
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--antique) !important;
+            text-align: left;
+        }
+        .combo-arrow-btn {
+            background: transparent;
+            border: none;
+            border-left: 1px solid var(--card-border);
+            color: var(--antique) !important;
+            height: 100%;
+            width: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.62rem;
+            cursor: pointer;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+        .combo-arrow-btn:hover {
+            color: var(--antique);
+            background: var(--card-bg);
         }
 
         .tool-row {
@@ -376,6 +499,8 @@
             align-items: center;
             justify-content: space-between;
             gap: 6px;
+            width: 100%;
+            box-sizing: border-box;
         }
         .tool-title {
             font-family: var(--font-serif);
@@ -416,14 +541,15 @@
             justify-content: center;
             user-select: none;
         }
+        /* 激活按钮保持专属金色 */
         .seg-btn.active {
-            background: var(--text-main);
-            color: var(--panel-bg);
+            background: var(--antique) !important;
+            color: #FFFFFF !important;
             font-weight: 700;
         }
         .seg-btn.tape-active {
-            background: var(--antique);
-            color: #ffffff;
+            background: var(--antique) !important;
+            color: #FFFFFF !important;
             font-weight: 700;
         }
 
@@ -450,6 +576,7 @@
             justify-content: center;
             white-space: nowrap;
             box-shadow: 2px 2px 0px 0px var(--papershadow);
+            box-sizing: border-box;
         }
         .sci-btn-mini:hover {
             border-color: var(--antique);
@@ -459,20 +586,23 @@
             border-color: var(--madder);
             color: var(--madder);
         }
+
+        /* 主操作按钮保持专属金色 */
         .sci-btn-primary {
-            background: var(--text-main);
-            color: var(--panel-bg) !important;
-            border-color: var(--text-main);
+            background: var(--antique) !important;
+            color: #FFFFFF !important;
+            border-color: var(--antique) !important;
             font-weight: 700;
         }
         .sci-btn-primary:hover {
-            background: var(--antique);
-            border-color: var(--antique);
-            color: #ffffff !important;
+            background: var(--antique-hover) !important;
+            border-color: var(--antique-hover) !important;
+            color: #FFFFFF !important;
         }
 
+        /* 匹配卡片保持默认边框色 */
         .match-eval-card.fit-ok {
-            border-color: var(--antique);
+            border-color: var(--card-border);
         }
         .match-eval-card.fit-warn {
             border-color: #b45309;
@@ -481,6 +611,7 @@
             border-color: var(--madder);
         }
 
+        /* 徽章恢复右图干净白底灰细边框，无多余绿边框/金边框 */
         .badge-capsule {
             padding: 2px 8px;
             border-radius: 2px;
@@ -490,19 +621,24 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            border: 1px solid currentColor;
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
         }
         .badge-capsule.bg-fit {
-            background: rgba(155, 120, 68, 0.08);
-            color: var(--antique);
+            background: var(--input-bg);
+            border-color: var(--card-border);
+            color: var(--text-main);
         }
         .badge-capsule.bg-warn {
             background: rgba(180, 83, 9, 0.08);
             color: #b45309;
+            border-color: #b45309;
         }
         .badge-capsule.bg-over {
             background: rgba(163, 42, 36, 0.08);
             color: var(--madder);
+            border-color: var(--madder);
         }
 
         .match-info-strip {
@@ -524,6 +660,8 @@
             flex-direction: column;
             gap: 5px;
             box-shadow: 2px 2px 0px 0px var(--papershadow);
+            width: 100%;
+            box-sizing: border-box;
         }
 
         #viewport-3d {
@@ -573,8 +711,9 @@
             transition: all 0.2s;
         }
         .f-btn.active {
-            background: var(--text-main);
-            color: var(--panel-bg);
+            background: var(--antique);
+            color: #FFFFFF !important;
+            font-weight: 700;
         }
 
         .ref-tray-container {
@@ -618,7 +757,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(24, 22, 20, 0.5);
+            background: rgba(24, 22, 20, 0.55);
             z-index: 1000;
             display: none;
             align-items: center;
@@ -649,6 +788,60 @@
             color: var(--text-main);
             border-bottom: 1px solid var(--panel-border);
             padding-bottom: 8px;
+        }
+
+        #custom-dropdown-modal {
+            z-index: 2000 !important;
+        }
+        #custom-dropdown-modal .modal-card {
+            max-width: 380px;
+            max-height: 70vh;
+        }
+        .custom-drop-list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            overflow-y: auto;
+            max-height: 52vh;
+            padding: 4px 2px;
+        }
+        .custom-drop-folder-group {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            margin-bottom: 4px;
+        }
+        .custom-drop-folder-label {
+            font-family: var(--font-serif);
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--antique);
+            padding: 2px 4px;
+            border-bottom: 1px dashed var(--card-border);
+        }
+        .custom-drop-option-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 7px 10px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--btn-radius);
+            cursor: pointer;
+            transition: all 0.15s;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        .custom-drop-option-item:hover, .custom-drop-option-item.selected {
+            border-color: var(--antique);
+            background: var(--panel-bg);
+            color: var(--antique);
+        }
+        .custom-drop-option-dims {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-family: var(--font-sans);
         }
 
         #manager-modal .modal-card {
@@ -700,29 +893,27 @@
         }
 
         .mgr-lock-btn {
-            background: transparent;
-            border: 1px solid var(--card-border);
-            padding: 2px 8px;
-            font-size: 0.72rem;
-            cursor: pointer;
+            height: 22px !important;
+            min-height: 22px !important;
+            padding: 0 6px !important;
+            font-size: 0.7rem !important;
             border-radius: var(--btn-radius);
+            cursor: pointer;
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            font-family: var(--font-sans);
+            justify-content: center;
+            box-shadow: 2px 2px 0px 0px var(--papershadow);
         }
         .mgr-lock-btn.locked {
             background: var(--input-bg);
             color: var(--text-muted);
-            border-color: var(--card-border);
-            font-weight: 600;
+            border: 1px solid var(--card-border);
         }
         .mgr-lock-btn.unlocked {
-            background: rgba(155, 120, 68, 0.12);
+            background: var(--input-bg);
             color: var(--antique);
-            border-color: var(--antique);
-            font-weight: 700;
+            border: 1px solid var(--antique);
         }
 
         .mgr-folder-content {
@@ -784,25 +975,25 @@
             align-items: center;
         }
 
-        /* 宽绰舒适的主题皮肤选择卡片网格 */
+        /* 完整保留 5 套皮肤卡片 */
         .skin-grid-selector {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
             width: 100%;
         }
         .skin-card-item {
             background: var(--input-bg);
             border: 1px solid var(--card-border);
             border-radius: var(--btn-radius);
-            padding: 10px 8px;
+            padding: 8px 4px;
             cursor: pointer;
             transition: all 0.2s;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            gap: 3px;
+            gap: 2px;
             box-shadow: 2px 2px 0px 0px var(--papershadow);
         }
         .skin-card-item:hover {
@@ -815,14 +1006,9 @@
         }
         .skin-card-title {
             font-family: var(--font-serif);
-            font-size: 0.86rem;
+            font-size: 0.82rem;
             font-weight: 700;
             color: var(--text-main);
-        }
-        .skin-card-sub {
-            font-size: 0.68rem;
-            color: var(--text-muted);
-            font-weight: 500;
         }
 
         @media (max-width: 860px) {
@@ -831,6 +1017,7 @@
             #viewport-3d { width: 100%; height: 45vh; order: 1; }
             .floating-hud { top: 8px; right: 8px; }
             .ref-tray-container { bottom: 8px; left: 8px; right: 8px; max-width: none; }
+            .skin-grid-selector { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 
@@ -839,7 +1026,6 @@
 </head>
 <body class="skin-editorial">
 
-    <div id="polkaPatternLayer"></div>
     <canvas id="dustCanvas"></canvas>
 
     <div id="hud-sidebar">
@@ -859,10 +1045,10 @@
         </div>
 
         <div class="hud-content">
-            <!-- 模块 1：待装载物品 -->
+            <!-- 模块 1：物品 -->
             <div class="sci-card">
                 <div class="card-head">
-                    <span class="card-label">待装载物品</span>
+                    <span class="card-label">物品</span>
                     <div class="btn-group">
                         <button class="sci-btn-mini" onclick="openSaveItemModal()">➕ 添加</button>
                     </div>
@@ -876,9 +1062,10 @@
                 <div id="single-item-container" style="display:flex; flex-direction:column; gap:6px;">
                     <div class="input-group-field">
                         <span class="field-label">预设选择</span>
-                        <select class="sci-select custom-active" id="item-preset-select" onchange="onItemPresetSelect(this.value)">
-                            <option value="custom_item">✏️ 自定义尺寸...</option>
-                        </select>
+                        <div class="custom-select-trigger" id="item-preset-trigger" onclick="openCustomPicker('item')">
+                            <span id="item-preset-text">✏️ 自定义尺寸...</span>
+                            <span class="sel-arrow">▼</span>
+                        </div>
                     </div>
 
                     <div class="grid-3col">
@@ -907,12 +1094,12 @@
                     </div>
                 </div>
 
-                <div id="multi-item-container" style="display:none; flex-direction:column; gap:6px;">
-                    <div class="tool-row">
+                <div id="multi-item-container" style="display:none; flex-direction:column; gap:6px; width:100%;">
+                    <div class="tool-row" style="width:100%;">
                         <button class="sci-btn-mini sci-btn-primary" style="flex:1;" onclick="solveOptimalMultiPacking(true)">⚡ 自动调整</button>
-                        <button class="sci-btn-mini" onclick="addMultiItemRow()">➕ 加物品</button>
+                        <button class="sci-btn-mini" onclick="addMultiItemRow()">增加</button>
                     </div>
-                    <div id="multi-items-list" style="display:flex; flex-direction:column; gap:5px; max-height: 220px; overflow-y:auto; padding-right:2px;"></div>
+                    <div id="multi-items-list" style="display:flex; flex-direction:column; gap:6px; max-height: 240px; overflow-y:auto; width:100%;"></div>
                 </div>
             </div>
 
@@ -927,9 +1114,10 @@
 
                 <div class="input-group-field">
                     <span class="field-label">预设选择</span>
-                    <select class="sci-select" id="box-preset-select" onchange="onBoxSelect(this.value)">
-                        <option value="custom">✏️ 自定义尺寸...</option>
-                    </select>
+                    <div class="custom-select-trigger" id="box-preset-trigger" onclick="openCustomPicker('box')">
+                        <span id="box-preset-text">05号标准箱 (29×17×19 cm)</span>
+                        <span class="sel-arrow">▼</span>
+                    </div>
                 </div>
 
                 <div class="grid-3col">
@@ -952,11 +1140,11 @@
             <div id="status-card" class="sci-card match-eval-card fit-ok">
                 <div class="card-head">
                     <span class="card-label" style="display:flex; align-items:center; gap:6px;">
-                        🎯 匹配模拟
-                        <span id="match-box-title" style="font-size:0.75rem; color:var(--antique); font-weight:600;">05号标准箱</span>
+                        <span style="color:#dc2626;">🎯</span> 匹配模拟
+                        <span id="match-box-title" style="font-size:0.75rem; color:var(--text-muted); font-weight:normal;">05号标准箱</span>
                     </span>
                     <div style="display:flex; align-items:center; gap:4px;">
-                        <span id="status-fill-rate" class="badge-capsule bg-fit">100%</span>
+                        <span id="status-fill-rate" class="badge-capsule bg-fit">100% 利用率</span>
                         <span id="status-main-badge" class="badge-capsule bg-fit">✅ 完美装入</span>
                     </div>
                 </div>
@@ -967,7 +1155,7 @@
                         <span id="match-box-dims" style="font-weight:700; color:var(--text-main);">(29×17×19 cm)</span>
                     </div>
                     <div id="status-sub" style="font-size:0.72rem; font-weight:600; color:var(--text-main); font-family:var(--font-serif);">
-                        余量: 长+6.5cm 宽+0.5cm 高+3.0cm
+                        余量: 长+6.5cm | 宽+0.5cm | 高+3.0cm
                     </div>
                 </div>
                 
@@ -1020,15 +1208,26 @@
         </div>
     </div>
 
+    <!-- 统一优雅下拉预设选择弹窗 -->
+    <div id="custom-dropdown-modal" class="modal-mask" onclick="if(event.target===this)closeModal('custom-dropdown-modal')">
+        <div class="modal-card">
+            <div class="modal-head">
+                <span id="custom-dropdown-title">选择预设</span>
+                <span style="cursor:pointer;" onclick="closeModal('custom-dropdown-modal')">✕</span>
+            </div>
+            <div class="custom-drop-list-container" id="custom-dropdown-content"></div>
+        </div>
+    </div>
+
     <!-- 侧边栏保存物品弹窗 -->
     <div id="save-item-modal" class="modal-mask" onclick="if(event.target===this)closeModal('save-item-modal')">
         <div class="modal-card" style="max-width:380px;">
             <div class="modal-head"><span>保存物品到库</span><span style="cursor:pointer;" onclick="closeModal('save-item-modal')">✕</span></div>
             <div class="input-group-field">
                 <span class="field-label">分类夹</span>
-                <div class="input-with-label">
-                    <select class="sci-select" id="save-item-folder-select" onchange="onSaveFolderSelectChange('item', this.value)"></select>
-                    <span class="suffix-text">分类</span>
+                <div class="custom-select-trigger" id="save-item-folder-trigger" onclick="openFolderPicker('item')">
+                    <span id="save-item-folder-text">默认物品</span>
+                    <span class="sel-arrow">▼</span>
                 </div>
             </div>
             <div class="input-group-field">
@@ -1047,9 +1246,9 @@
             <div class="modal-head"><span>保存纸箱到库</span><span style="cursor:pointer;" onclick="closeModal('save-box-modal')">✕</span></div>
             <div class="input-group-field">
                 <span class="field-label">分类夹</span>
-                <div class="input-with-label">
-                    <select class="sci-select" id="save-box-folder-select" onchange="onSaveFolderSelectChange('box', this.value)"></select>
-                    <span class="suffix-text">分类</span>
+                <div class="custom-select-trigger" id="save-box-folder-trigger" onclick="openFolderPicker('box')">
+                    <span id="save-box-folder-text">邮政标准纸箱</span>
+                    <span class="sel-arrow">▼</span>
                 </div>
             </div>
             <div class="input-group-field">
@@ -1062,7 +1261,7 @@
         </div>
     </div>
 
-    <!-- 综合管理与设置模态窗 -->
+    <!-- 综合管理与设置模态窗（完整 5 套主题与粒子设置） -->
     <div id="manager-modal" class="modal-mask" onclick="if(event.target===this)closeModal('manager-modal')">
         <div class="modal-card">
             <div class="modal-head">
@@ -1084,9 +1283,9 @@
                         <button class="sci-btn-mini danger" style="height:22px !important;" onclick="resetDefaultItems()">恢复默认物品</button>
                     </div>
                     <div class="mgr-field-row">
-                        <div class="input-with-label">
-                            <select class="sci-select" id="mgr-add-item-folder-select" onchange="onMgrNewFolderSelect('item', this.value)"></select>
-                            <span class="suffix-text">分类</span>
+                        <div class="custom-select-trigger" style="flex:1;" onclick="openMgrAddFolderPicker('item')">
+                            <span id="mgr-add-item-folder-text">盲盒</span>
+                            <span class="sel-arrow">▼</span>
                         </div>
                     </div>
                     <div class="mgr-field-row">
@@ -1111,9 +1310,9 @@
                         <button class="sci-btn-mini danger" style="height:22px !important;" onclick="resetDefaultBoxes()">恢复默认纸箱</button>
                     </div>
                     <div class="mgr-field-row">
-                        <div class="input-with-label">
-                            <select class="sci-select" id="mgr-add-box-folder-select" onchange="onMgrNewFolderSelect('box', this.value)"></select>
-                            <span class="suffix-text">分类</span>
+                        <div class="custom-select-trigger" style="flex:1;" onclick="openMgrAddFolderPicker('box')">
+                            <span id="mgr-add-box-folder-text">邮政标准纸箱</span>
+                            <span class="sel-arrow">▼</span>
                         </div>
                     </div>
                     <div class="mgr-field-row">
@@ -1130,22 +1329,25 @@
                 <div id="mgr-boxes-folder-container"></div>
             </div>
 
-            <!-- 3. 风格与调色盘 -->
+            <!-- 3. 风格与调色盘：5套皮肤与完整粒子形态 -->
             <div id="mgr-content-skins" style="display:none; overflow-y:auto; padding-right:2px;">
                 <div class="sci-card">
                     <span class="card-label">主题设定</span>
                     <div class="skin-grid-selector">
                         <div class="skin-card-item active" id="skin-btn-editorial" onclick="setSkinMode('editorial')">
                             <span class="skin-card-title">杂志</span>
-                            <span class="skin-card-sub">纯白纸箱 · 黑金描边</span>
                         </div>
                         <div class="skin-card-item" id="skin-btn-dark" onclick="setSkinMode('dark')">
                             <span class="skin-card-title">夜金</span>
-                            <span class="skin-card-sub">高辨识度 · 曜黑夜境</span>
                         </div>
                         <div class="skin-card-item" id="skin-btn-tech" onclick="setSkinMode('tech')">
                             <span class="skin-card-title">极简</span>
-                            <span class="skin-card-sub">白箱石墨描边 · 纯净冷调</span>
+                        </div>
+                        <div class="skin-card-item" id="skin-btn-sage" onclick="setSkinMode('sage')">
+                            <span class="skin-card-title">鼠尾草</span>
+                        </div>
+                        <div class="skin-card-item" id="skin-btn-apricot" onclick="setSkinMode('apricot')">
+                            <span class="skin-card-title">暖杏</span>
                         </div>
                     </div>
                 </div>
@@ -1153,12 +1355,16 @@
                 <div class="sci-card">
                     <span class="card-label">背景动效</span>
                     <div style="display:flex; justify-content:space-between; align-items:center; padding:3px 0;">
-                        <span style="font-size:0.75rem;">飘动点阵网格:</span>
-                        <input type="checkbox" id="toggle-polka" checked onchange="togglePolkaLayer(this.checked)" style="cursor:pointer;">
-                    </div>
-                    <div style="display:flex; justify-content:space-between; align-items:center; padding:3px 0;">
                         <span style="font-size:0.75rem;">浮动微尘粒子:</span>
                         <input type="checkbox" id="toggle-dust" checked onchange="toggleDustLayer(this.checked)" style="cursor:pointer;">
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:3px 0;">
+                        <span style="font-size:0.75rem;">粒子形态类型:</span>
+                        <div class="segmented-control" id="particle-type-group" style="max-width:180px;">
+                            <button class="seg-btn active" id="p-mode-dust" onclick="setParticleStyle('dust')">光尘</button>
+                            <button class="seg-btn" id="p-mode-star" onclick="setParticleStyle('star')">星辉</button>
+                            <button class="seg-btn" id="p-mode-motes" onclick="setParticleStyle('motes')">微芒</button>
+                        </div>
                     </div>
                 </div>
 
@@ -1305,8 +1511,11 @@
         let paddingThickness = 0;
         let expectedGap = 0;
         
+        let currentItemKey = "pop_single";
         let currentItemName = "单盒";
+        let currentBoxKey = "p05";
         let currentBoxName = "05号标准箱";
+
         let packingMode = 'single'; 
         let itemSize = { l: 265, w: 165, h: 65 }; 
         let matrixCount = { x: 1, y: 1, z: 1 };
@@ -1322,15 +1531,15 @@
         let boxGroup, itemsGroup, refsGroup, padGroup;
         let tapeMesh, gridHelper;
 
-        const ITEM_SURFACE_GAP = 3.0;
+        const ITEM_SURFACE_GAP = 2.0;
 
         window.addEventListener('DOMContentLoaded', () => {
             init3D();
             initDustCanvas();
             setSysUnit('cm');
-            refreshPresetsDropdowns();
-            renderMultiItemsUI();
             applyBoxPreset("p05");
+            applyItemPreset("pop_single");
+            solveOptimalMultiPacking(false, true);
             syncUI();
             animate();
         });
@@ -1344,10 +1553,7 @@
             if(btnId) { const btn = document.getElementById(btnId); if(btn) btn.classList.add('active'); }
         }
 
-        function openModal(id) { 
-            document.getElementById(id).style.display = 'flex'; 
-            if (id === 'save-item-modal' || id === 'save-box-modal') refreshSaveModalFolderSelects();
-        }
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
         
         let activeMgrTab = 'item';
@@ -1396,138 +1602,152 @@
             return Array.from(set);
         }
 
-        function updatePresetSelectHighlight() {
-            const itemSel = document.getElementById('item-preset-select');
-            if (itemSel) {
-                if (itemSel.value === 'custom_item') {
-                    itemSel.classList.remove('preset-selected-active');
-                    itemSel.classList.add('custom-active');
-                } else {
-                    itemSel.classList.remove('custom-active');
-                    itemSel.classList.add('preset-selected-active');
-                }
-            }
-            const boxSel = document.getElementById('box-preset-select');
-            if (boxSel) {
-                if (boxSel.value === 'custom') {
-                    boxSel.classList.remove('preset-selected-active');
-                    boxSel.classList.add('custom-active');
-                } else {
-                    boxSel.classList.remove('custom-active');
-                    boxSel.classList.add('preset-selected-active');
-                }
-            }
-        }
+        function openCustomPicker(targetType, multiIdx = null) {
+            const titleEl = document.getElementById('custom-dropdown-title');
+            const contentEl = document.getElementById('custom-dropdown-content');
+            contentEl.innerHTML = '';
 
-        function refreshPresetsDropdowns() {
-            const boxSelect = document.getElementById('box-preset-select');
-            boxSelect.querySelectorAll('optgroup').forEach(g => g.remove());
+            const isBox = (targetType === 'box');
+            titleEl.textContent = isBox ? '选择纸箱预设' : '选择物品规格';
 
-            const boxFolders = {};
-            for (const [k, v] of Object.entries(BOX_PRESETS)) {
-                const f = v.folder || '其它分类';
-                if (!boxFolders[f]) boxFolders[f] = [];
-                boxFolders[f].push({ key: k, ...v });
+            const dict = isBox ? BOX_PRESETS : ITEM_PRESETS;
+            const folders = {};
+            for (const [k, v] of Object.entries(dict)) {
+                const f = v.folder || '默认分类';
+                if (!folders[f]) folders[f] = [];
+                folders[f].push({ key: k, ...v });
             }
 
-            for (const [folderName, items] of Object.entries(boxFolders)) {
-                const optg = document.createElement('optgroup');
-                optg.label = `📁 ${folderName}`;
+            if (multiIdx === null) {
+                const customOpt = document.createElement('div');
+                const isCustomSelected = isBox ? (currentBoxKey === 'custom') : (currentItemKey === 'custom_item');
+                customOpt.className = `custom-drop-option-item ${isCustomSelected ? 'selected' : ''}`;
+                customOpt.innerHTML = `<span>✏️ 自定义尺寸...</span>`;
+                customOpt.onclick = () => {
+                    if (isBox) {
+                        currentBoxKey = 'custom';
+                        currentBoxName = '自定纸箱';
+                        document.getElementById('box-preset-text').textContent = '✏️ 自定义尺寸...';
+                    } else {
+                        currentItemKey = 'custom_item';
+                        currentItemName = '自定物品';
+                        document.getElementById('item-preset-text').textContent = '✏️ 自定义尺寸...';
+                    }
+                    closeModal('custom-dropdown-modal');
+                };
+                contentEl.appendChild(customOpt);
+            }
+
+            for (const [folderName, items] of Object.entries(folders)) {
+                const grp = document.createElement('div');
+                grp.className = 'custom-drop-folder-group';
+                grp.innerHTML = `<div class="custom-drop-folder-label">📁 ${folderName}</div>`;
+
                 items.forEach(it => {
-                    const opt = document.createElement('option');
-                    opt.value = it.key;
-                    opt.textContent = `${it.name}: ${toDisplay(it.dims[0])} × ${toDisplay(it.dims[1])} × ${toDisplay(it.dims[2])} ${curUnit}`;
-                    optg.appendChild(opt);
+                    const row = document.createElement('div');
+                    const isSelected = isBox ? (currentBoxKey === it.key) : (currentItemKey === it.key);
+                    row.className = `custom-drop-option-item ${isSelected ? 'selected' : ''}`;
+                    row.innerHTML = `
+                        <span>${it.name}</span>
+                        <span class="custom-drop-option-dims">${toDisplay(it.dims[0])} × ${toDisplay(it.dims[1])} × ${toDisplay(it.dims[2])} ${curUnit}</span>
+                    `;
+                    row.onclick = () => {
+                        if (multiIdx !== null) {
+                            multiItemList[multiIdx].name = it.name;
+                            multiItemList[multiIdx].l = it.dims[0];
+                            multiItemList[multiIdx].w = it.dims[1];
+                            multiItemList[multiIdx].h = it.dims[2];
+                            renderMultiItemsUI();
+                            solveOptimalMultiPacking(false, true);
+                        } else if (isBox) {
+                            applyBoxPreset(it.key);
+                        } else {
+                            applyItemPreset(it.key);
+                        }
+                        closeModal('custom-dropdown-modal');
+                    };
+                    grp.appendChild(row);
                 });
-                boxSelect.insertBefore(optg, boxSelect.lastElementChild);
+                contentEl.appendChild(grp);
             }
 
-            const itemSelect = document.getElementById('item-preset-select');
-            itemSelect.querySelectorAll('optgroup').forEach(g => g.remove());
-
-            const itemFolders = {};
-            for (const [k, v] of Object.entries(ITEM_PRESETS)) {
-                const f = v.folder || '其它分类';
-                if (!itemFolders[f]) itemFolders[f] = [];
-                itemFolders[f].push({ key: k, ...v });
-            }
-
-            for (const [folderName, items] of Object.entries(itemFolders)) {
-                const optg = document.createElement('optgroup');
-                optg.label = `📁 ${folderName}`;
-                items.forEach(it => {
-                    const opt = document.createElement('option');
-                    opt.value = it.key;
-                    opt.textContent = `${it.name} (${toDisplay(it.dims[0])} × ${toDisplay(it.dims[1])} × ${toDisplay(it.dims[2])} ${curUnit})`;
-                    optg.appendChild(opt);
-                });
-                itemSelect.insertBefore(optg, itemSelect.lastElementChild);
-            }
-
-            refreshSaveModalFolderSelects();
-            updatePresetSelectHighlight();
+            openModal('custom-dropdown-modal');
         }
 
-        function refreshSaveModalFolderSelects() {
-            const itemFolders = getFolders('item');
-            const boxFolders = getFolders('box');
+        let saveFolderSelection = { item: '默认物品', box: '邮政标准纸箱' };
+        function openFolderPicker(type) {
+            const titleEl = document.getElementById('custom-dropdown-title');
+            const contentEl = document.getElementById('custom-dropdown-content');
+            contentEl.innerHTML = '';
+            titleEl.textContent = '选择分类夹';
 
-            const itemSel = document.getElementById('save-item-folder-select');
-            if (itemSel) {
-                itemSel.innerHTML = itemFolders.map(f => `<option value="${f}">${f}</option>`).join('') + `<option value="__NEW__">➕ 新建分类...</option>`;
-            }
-            const boxSel = document.getElementById('save-box-folder-select');
-            if (boxSel) {
-                boxSel.innerHTML = boxFolders.map(f => `<option value="${f}">${f}</option>`).join('') + `<option value="__NEW__">➕ 新建分类...</option>`;
-            }
+            const folders = getFolders(type);
+            folders.forEach(f => {
+                const row = document.createElement('div');
+                row.className = 'custom-drop-option-item';
+                row.textContent = f;
+                row.onclick = () => {
+                    saveFolderSelection[type] = f;
+                    document.getElementById(type==='item'?'save-item-folder-text':'save-box-folder-text').textContent = f;
+                    closeModal('custom-dropdown-modal');
+                };
+                contentEl.appendChild(row);
+            });
 
-            const mgrItemSel = document.getElementById('mgr-add-item-folder-select');
-            if (mgrItemSel) {
-                mgrItemSel.innerHTML = itemFolders.map(f => `<option value="${f}">${f}</option>`).join('') + `<option value="__NEW__">➕ 新建分类...</option>`;
-            }
-            const mgrBoxSel = document.getElementById('mgr-add-box-folder-select');
-            if (mgrBoxSel) {
-                mgrBoxSel.innerHTML = boxFolders.map(f => `<option value="${f}">${f}</option>`).join('') + `<option value="__NEW__">➕ 新建分类...</option>`;
-            }
-        }
-
-        async function onSaveFolderSelectChange(type, val) {
-            if (val === '__NEW__') {
+            const newOpt = document.createElement('div');
+            newOpt.className = 'custom-drop-option-item';
+            newOpt.innerHTML = `<span>➕ 新建分类...</span>`;
+            newOpt.onclick = async () => {
+                closeModal('custom-dropdown-modal');
                 const name = await sysPrompt('请输入新分类名称:');
-                const sel = document.getElementById(type === 'item' ? 'save-item-folder-select' : 'save-box-folder-select');
                 if (name && name.trim()) {
-                    const opt = document.createElement('option');
-                    opt.value = name.trim();
-                    opt.textContent = name.trim();
-                    sel.insertBefore(opt, sel.firstChild);
-                    sel.value = name.trim();
-                } else {
-                    sel.selectedIndex = 0;
+                    saveFolderSelection[type] = name.trim();
+                    document.getElementById(type==='item'?'save-item-folder-text':'save-box-folder-text').textContent = name.trim();
                 }
-            }
+            };
+            contentEl.appendChild(newOpt);
+            openModal('custom-dropdown-modal');
         }
 
-        async function onMgrNewFolderSelect(type, val) {
-            if (val === '__NEW__') {
+        let mgrAddFolder = { item: '盲盒', box: '邮政标准纸箱' };
+        function openMgrAddFolderPicker(type) {
+            const titleEl = document.getElementById('custom-dropdown-title');
+            const contentEl = document.getElementById('custom-dropdown-content');
+            contentEl.innerHTML = '';
+            titleEl.textContent = '选择新增分类';
+
+            const folders = getFolders(type);
+            folders.forEach(f => {
+                const row = document.createElement('div');
+                row.className = 'custom-drop-option-item';
+                row.textContent = f;
+                row.onclick = () => {
+                    mgrAddFolder[type] = f;
+                    document.getElementById(type==='item'?'mgr-add-item-folder-text':'mgr-add-box-folder-text').textContent = f;
+                    closeModal('custom-dropdown-modal');
+                };
+                contentEl.appendChild(row);
+            });
+
+            const newOpt = document.createElement('div');
+            newOpt.className = 'custom-drop-option-item';
+            newOpt.innerHTML = `<span>➕ 新建分类...</span>`;
+            newOpt.onclick = async () => {
+                closeModal('custom-dropdown-modal');
                 const name = await sysPrompt('请输入新分类名称:');
-                const sel = document.getElementById(type === 'item' ? 'mgr-add-item-folder-select' : 'mgr-add-box-folder-select');
                 if (name && name.trim()) {
-                    const opt = document.createElement('option');
-                    opt.value = name.trim();
-                    opt.textContent = name.trim();
-                    sel.insertBefore(opt, sel.firstChild);
-                    sel.value = name.trim();
-                } else {
-                    sel.selectedIndex = 0;
+                    mgrAddFolder[type] = name.trim();
+                    document.getElementById(type==='item'?'mgr-add-item-folder-text':'mgr-add-box-folder-text').textContent = name.trim();
                 }
-            }
+            };
+            contentEl.appendChild(newOpt);
+            openModal('custom-dropdown-modal');
         }
 
         function renderManagerItemsList() {
             const container = document.getElementById('mgr-items-folder-container');
             container.innerHTML = '';
 
-            const allFolders = getFolders('item');
             const folders = {};
             for (const [k, it] of Object.entries(ITEM_PRESETS)) {
                 const f = it.folder || '默认分类';
@@ -1543,18 +1763,8 @@
                 folderCard.className = 'mgr-folder-block';
 
                 let rowsHTML = items.map(it => {
-                    const folderOptions = allFolders.map(f => `<option value="${f}" ${f===(it.folder||folderName)?'selected':''}>${f}</option>`).join('') + `<option value="__NEW__">➕ 新建分类...</option>`;
-
                     return `
                     <div class="mgr-item-card">
-                        <div class="mgr-field-row">
-                            <div class="input-with-label">
-                                <select class="sci-select" id="mgr-edit-item-folder-${it.key}" ${locked ? 'disabled' : ''} onchange="onItemRowFolderChange('${it.key}', this.value)">
-                                    ${folderOptions}
-                                </select>
-                                <span class="suffix-text">分类</span>
-                            </div>
-                        </div>
                         <div class="mgr-field-row">
                             <input type="text" class="sci-input mgr-name-input" id="mgr-edit-item-name-${it.key}" value="${it.name}" ${locked ? 'disabled' : ''} placeholder="物品名称">
                             <div class="btn-group">
@@ -1578,10 +1788,8 @@
                             <span style="font-size:0.7rem; color:var(--text-muted); font-weight:normal;">(${items.length} 规格)</span>
                         </div>
                         <div style="display:flex; align-items:center; gap:6px;">
-                            <button class="mgr-lock-btn ${locked ? 'locked' : 'unlocked'}" onclick="toggleFolderLock('item', '${folderName}', event)">
-                                <span>${locked ? '🔒' : '🔓 '}</span>
-                            </button>
-                            <button class="sci-btn-mini" style="height:22px !important; font-size:0.7rem;" ${locked ? 'disabled style="opacity:0.35;cursor:not-allowed;"' : ''} onclick="renameFolder('item', '${folderName}')">✏</button>
+                            <button class="sci-btn-mini mgr-lock-btn ${locked ? 'locked' : 'unlocked'}" onclick="toggleFolderLock('item', '${folderName}', event)">${locked ? '🔒' : '🔓'}</button>
+                            <button class="sci-btn-mini" style="height:22px !important; min-height:22px !important; font-size:0.7rem; padding:0 6px;" ${locked ? 'disabled style="opacity:0.35;cursor:not-allowed;"' : ''} onclick="renameFolder('item', '${folderName}')">✏️</button>
                         </div>
                     </div>
                     <div class="mgr-folder-content ${isCollapsed ? 'collapsed' : ''}">${rowsHTML}</div>
@@ -1590,30 +1798,10 @@
             }
         }
 
-        async function onItemRowFolderChange(k, val) {
-            if (val === '__NEW__') {
-                const name = await sysPrompt('请输入新分类名称:');
-                if (name && name.trim()) {
-                    ITEM_PRESETS[k].folder = name.trim();
-                    saveItemsToStorage();
-                    refreshPresetsDropdowns();
-                    renderManagerItemsList();
-                } else {
-                    renderManagerItemsList();
-                }
-            } else {
-                ITEM_PRESETS[k].folder = val;
-                saveItemsToStorage();
-                refreshPresetsDropdowns();
-                renderManagerItemsList();
-            }
-        }
-
         function renderManagerBoxesList() {
             const container = document.getElementById('mgr-boxes-folder-container');
             container.innerHTML = '';
 
-            const allFolders = getFolders('box');
             const folders = {};
             for (const [k, b] of Object.entries(BOX_PRESETS)) {
                 const f = b.folder || '自定义箱';
@@ -1629,18 +1817,8 @@
                 folderCard.className = 'mgr-folder-block';
 
                 let rowsHTML = items.map(b => {
-                    const folderOptions = allFolders.map(f => `<option value="${f}" ${f===(b.folder||folderName)?'selected':''}>${f}</option>`).join('') + `<option value="__NEW__">➕ 新建分类...</option>`;
-
                     return `
                     <div class="mgr-item-card">
-                        <div class="mgr-field-row">
-                            <div class="input-with-label">
-                                <select class="sci-select" id="mgr-edit-box-folder-${b.key}" ${locked ? 'disabled' : ''} onchange="onBoxRowFolderChange('${b.key}', this.value)">
-                                    ${folderOptions}
-                                </select>
-                                <span class="suffix-text">分类</span>
-                            </div>
-                        </div>
                         <div class="mgr-field-row">
                             <input type="text" class="sci-input mgr-name-input" id="mgr-edit-box-name-${b.key}" value="${b.name}" ${locked ? 'disabled' : ''} placeholder="纸箱名称">
                             <div class="btn-group">
@@ -1664,34 +1842,13 @@
                             <span style="font-size:0.7rem; color:var(--text-muted); font-weight:normal;">(${items.length} 规格)</span>
                         </div>
                         <div style="display:flex; align-items:center; gap:6px;">
-                            <button class="mgr-lock-btn ${locked ? 'locked' : 'unlocked'}" onclick="toggleFolderLock('box', '${folderName}', event)">
-                                <span>${locked ? '🔒' : '🔓'}</span>
-                            </button>
-                            <button class="sci-btn-mini" style="height:22px !important; font-size:0.7rem;" ${locked ? 'disabled style="opacity:0.35;cursor:not-allowed;"' : ''} onclick="renameFolder('box', '${folderName}')">✏️</button>
+                            <button class="sci-btn-mini mgr-lock-btn ${locked ? 'locked' : 'unlocked'}" onclick="toggleFolderLock('box', '${folderName}', event)">${locked ? '🔒' : '🔓'}</button>
+                            <button class="sci-btn-mini" style="height:22px !important; min-height:22px !important; font-size:0.7rem; padding:0 6px;" ${locked ? 'disabled style="opacity:0.35;cursor:not-allowed;"' : ''} onclick="renameFolder('box', '${folderName}')">✏️</button>
                         </div>
                     </div>
                     <div class="mgr-folder-content ${isCollapsed ? 'collapsed' : ''}">${rowsHTML}</div>
                 `;
                 container.appendChild(folderCard);
-            }
-        }
-
-        async function onBoxRowFolderChange(k, val) {
-            if (val === '__NEW__') {
-                const name = await sysPrompt('请输入新分类名称:');
-                if (name && name.trim()) {
-                    BOX_PRESETS[k].folder = name.trim();
-                    saveBoxesToStorage();
-                    refreshPresetsDropdowns();
-                    renderManagerBoxesList();
-                } else {
-                    renderManagerBoxesList();
-                }
-            } else {
-                BOX_PRESETS[k].folder = val;
-                saveBoxesToStorage();
-                refreshPresetsDropdowns();
-                renderManagerBoxesList();
             }
         }
 
@@ -1707,30 +1864,23 @@
 
             if (type === 'item') {
                 for (const k in ITEM_PRESETS) {
-                    if (ITEM_PRESETS[k].folder === oldName) {
-                        ITEM_PRESETS[k].folder = targetName;
-                    }
+                    if (ITEM_PRESETS[k].folder === oldName) ITEM_PRESETS[k].folder = targetName;
                 }
                 saveItemsToStorage();
                 renderManagerItemsList();
             } else {
                 for (const k in BOX_PRESETS) {
-                    if (BOX_PRESETS[k].folder === oldName) {
-                        BOX_PRESETS[k].folder = targetName;
-                    }
+                    if (BOX_PRESETS[k].folder === oldName) BOX_PRESETS[k].folder = targetName;
                 }
                 saveBoxesToStorage();
                 renderManagerBoxesList();
             }
-            refreshPresetsDropdowns();
         }
 
         function mgrSubmitNewItem() {
             let name = document.getElementById('mgr-add-item-name').value.trim();
             if (!name) name = `物品_${Date.now().toString().slice(-4)}`;
-            
-            let folder = document.getElementById('mgr-add-item-folder-select').value;
-            if (folder === '__NEW__' || !folder) folder = '默认物品';
+            let folder = mgrAddFolder.item || '默认物品';
 
             const l = toInternal(parseFloat(document.getElementById('mgr-add-item-l').value) || 10);
             const w = toInternal(parseFloat(document.getElementById('mgr-add-item-w').value) || 10);
@@ -1739,7 +1889,6 @@
             const key = 'it_' + Date.now();
             ITEM_PRESETS[key] = { name: name, folder: folder, dims: [l, w, h] };
             saveItemsToStorage();
-            refreshPresetsDropdowns();
             renderManagerItemsList();
 
             document.getElementById('mgr-add-item-name').value = '';
@@ -1754,16 +1903,16 @@
                 return;
             }
             const name = document.getElementById(`mgr-edit-item-name-${k}`).value.trim() || '未命名';
-            const folder = document.getElementById(`mgr-edit-item-folder-${k}`).value;
             const l = toInternal(parseFloat(document.getElementById(`mgr-edit-item-l-${k}`).value) || 1);
             const w = toInternal(parseFloat(document.getElementById(`mgr-edit-item-w-${k}`).value) || 1);
             const h = toInternal(parseFloat(document.getElementById(`mgr-edit-item-h-${k}`).value) || 1);
 
-            ITEM_PRESETS[k] = { name: name, folder: folder, dims: [l, w, h] };
+            ITEM_PRESETS[k].name = name;
+            ITEM_PRESETS[k].dims = [l, w, h];
             saveItemsToStorage();
-            refreshPresetsDropdowns();
             renderManagerItemsList();
-            if (currentItemName === name || document.getElementById('item-preset-select').value === k) {
+
+            if (currentItemKey === k) {
                 itemSize = { l, w, h };
                 currentItemName = name;
                 updateInputDisplays();
@@ -1772,8 +1921,7 @@
         }
 
         function mgrApplyItem(k) {
-            document.getElementById('item-preset-select').value = k;
-            onItemPresetSelect(k);
+            applyItemPreset(k);
             closeModal('manager-modal');
         }
 
@@ -1789,7 +1937,6 @@
             if (Object.keys(ITEM_PRESETS).length <= 1) { await sysAlert('物品库至少需保留一个预设！'); return; }
             delete ITEM_PRESETS[k];
             saveItemsToStorage();
-            refreshPresetsDropdowns();
             renderManagerItemsList();
         }
 
@@ -1798,24 +1945,19 @@
             if (confirmed) {
                 const userCustomItems = {};
                 for (const [k, v] of Object.entries(ITEM_PRESETS)) {
-                    if (!INITIAL_ITEM_PRESETS[k]) {
-                        userCustomItems[k] = v;
-                    }
+                    if (!INITIAL_ITEM_PRESETS[k]) userCustomItems[k] = v;
                 }
                 ITEM_PRESETS = Object.assign(JSON.parse(JSON.stringify(INITIAL_ITEM_PRESETS)), userCustomItems);
                 saveItemsToStorage();
-                refreshPresetsDropdowns();
                 renderManagerItemsList();
-                onItemPresetSelect('pop_single');
+                applyItemPreset('pop_single');
             }
         }
 
         function mgrSubmitNewBox() {
             let name = document.getElementById('mgr-add-box-name').value.trim();
             if (!name) name = `箱型_${Date.now().toString().slice(-4)}`;
-            
-            let folder = document.getElementById('mgr-add-box-folder-select').value;
-            if (folder === '__NEW__' || !folder) folder = '自定义箱';
+            let folder = mgrAddFolder.box || '自定义箱';
 
             const l = toInternal(parseFloat(document.getElementById('mgr-add-box-l').value) || 20);
             const w = toInternal(parseFloat(document.getElementById('mgr-add-box-w').value) || 20);
@@ -1824,7 +1966,6 @@
             const key = 'bx_' + Date.now();
             BOX_PRESETS[key] = { name: name, folder: folder, dims: [l, w, h] };
             saveBoxesToStorage();
-            refreshPresetsDropdowns();
             renderManagerBoxesList();
 
             document.getElementById('mgr-add-box-name').value = '';
@@ -1839,16 +1980,16 @@
                 return;
             }
             const name = document.getElementById(`mgr-edit-box-name-${k}`).value.trim() || '未命名箱';
-            const folder = document.getElementById(`mgr-edit-box-folder-${k}`).value;
             const l = toInternal(parseFloat(document.getElementById(`mgr-edit-box-l-${k}`).value) || 1);
             const w = toInternal(parseFloat(document.getElementById(`mgr-edit-box-w-${k}`).value) || 1);
             const h = toInternal(parseFloat(document.getElementById(`mgr-edit-box-h-${k}`).value) || 1);
 
-            BOX_PRESETS[k] = { name: name, folder: folder, dims: [l, w, h] };
+            BOX_PRESETS[k].name = name;
+            BOX_PRESETS[k].dims = [l, w, h];
             saveBoxesToStorage();
-            refreshPresetsDropdowns();
             renderManagerBoxesList();
-            if (currentBoxName === name || document.getElementById('box-preset-select').value === k) {
+
+            if (currentBoxKey === k) {
                 boxSize = { l, w, h };
                 currentBoxName = name;
                 updateInputDisplays();
@@ -1873,7 +2014,6 @@
             if (Object.keys(BOX_PRESETS).length <= 1) { await sysAlert('纸箱库至少需保留一个预设！'); return; }
             delete BOX_PRESETS[k];
             saveBoxesToStorage();
-            refreshPresetsDropdowns();
             renderManagerBoxesList();
         }
 
@@ -1882,13 +2022,10 @@
             if (confirmed) {
                 const userCustomBoxes = {};
                 for (const [k, v] of Object.entries(BOX_PRESETS)) {
-                    if (!INITIAL_BOX_PRESETS[k]) {
-                        userCustomBoxes[k] = v;
-                    }
+                    if (!INITIAL_BOX_PRESETS[k]) userCustomBoxes[k] = v;
                 }
                 BOX_PRESETS = Object.assign(JSON.parse(JSON.stringify(INITIAL_BOX_PRESETS)), userCustomBoxes);
                 saveBoxesToStorage();
-                refreshPresetsDropdowns();
                 renderManagerBoxesList();
                 applyBoxPreset('p05');
             }
@@ -1898,63 +2035,48 @@
         function confirmSaveCustomItem() {
             let name = document.getElementById('custom-item-name').value.trim();
             if (!name) name = `物品_${Date.now().toString().slice(-4)}`;
-            const folder = document.getElementById('save-item-folder-select').value || '自定义物品';
+            const folder = saveFolderSelection.item || '自定义物品';
             const key = 'it_' + Date.now();
             ITEM_PRESETS[key] = { name: name, folder: folder, dims: [itemSize.l, itemSize.w, itemSize.h] };
             saveItemsToStorage();
-            currentItemName = name;
-            refreshPresetsDropdowns();
-            document.getElementById('item-preset-select').value = key;
+            applyItemPreset(key);
             closeModal('save-item-modal');
         }
 
         function openSaveBoxModal() { openModal('save-box-modal'); }
         function confirmSaveCustomBox() {
-            const folder = document.getElementById('save-box-folder-select').value || '自定义箱';
+            const folder = saveFolderSelection.box || '自定义箱';
             let name = document.getElementById('custom-box-name').value.trim();
             if (!name) name = `箱型_${Date.now().toString().slice(-4)}`;
             const key = 'bx_' + Date.now();
             BOX_PRESETS[key] = { name: name, folder: folder, dims: [boxSize.l, boxSize.w, boxSize.h] };
             saveBoxesToStorage();
-            currentBoxName = name;
-            refreshPresetsDropdowns();
-            document.getElementById('box-preset-select').value = key;
+            applyBoxPreset(key);
             closeModal('save-box-modal');
         }
 
-        function onItemPresetSelect(val) {
-            if (val === 'custom_item') {
-                updatePresetSelectHighlight();
-                return;
-            }
-            const it = ITEM_PRESETS[val];
+        function applyItemPreset(k) {
+            const it = ITEM_PRESETS[k];
             if (it) {
+                currentItemKey = k;
                 itemSize = { l: it.dims[0], w: it.dims[1], h: it.dims[2] };
                 currentItemName = it.name;
+                document.getElementById('item-preset-text').textContent = `${it.name} (${toDisplay(it.dims[0])}×${toDisplay(it.dims[1])}×${toDisplay(it.dims[2])} ${curUnit})`;
                 updateInputDisplays();
                 rebuild3D();
             }
-            updatePresetSelectHighlight();
-        }
-
-        function onBoxSelect(k) {
-            if (k === 'custom') {
-                updatePresetSelectHighlight();
-                return;
-            }
-            applyBoxPreset(k);
         }
 
         function applyBoxPreset(k) {
             const it = BOX_PRESETS[k];
             if (it) {
+                currentBoxKey = k;
                 boxSize = { l: it.dims[0], w: it.dims[1], h: it.dims[2] };
                 currentBoxName = it.name;
-                document.getElementById('box-preset-select').value = k;
+                document.getElementById('box-preset-text').textContent = `${it.name} (${toDisplay(it.dims[0])}×${toDisplay(it.dims[1])}×${toDisplay(it.dims[2])} ${curUnit})`;
                 updateInputDisplays();
                 rebuild3D();
             }
-            updatePresetSelectHighlight();
         }
 
         function setSysUnit(u) { 
@@ -1964,7 +2086,12 @@
             document.querySelectorAll('.u-lab').forEach(el => el.textContent = u);
             updateInputDisplays(); 
             renderMultiItemsUI(); 
-            refreshPresetsDropdowns();
+            if (currentBoxKey !== 'custom' && BOX_PRESETS[currentBoxKey]) {
+                applyBoxPreset(currentBoxKey);
+            }
+            if (currentItemKey !== 'custom_item' && ITEM_PRESETS[currentItemKey]) {
+                applyItemPreset(currentItemKey);
+            }
             if (document.getElementById('manager-modal').style.display === 'flex') {
                 renderManagerItemsList();
                 renderManagerBoxesList();
@@ -2035,24 +2162,24 @@
         }
 
         function onItemParamChange() {
-            document.getElementById('item-preset-select').value='custom_item';
-            currentItemName="自定物品";
+            currentItemKey = 'custom_item';
+            currentItemName = "自定物品";
+            document.getElementById('item-preset-text').textContent = '✏️ 自定义尺寸...';
             itemSize.l=Math.max(1,toInternal(parseFloat(document.getElementById('in-item-l').value)||1));
             itemSize.w=Math.max(1,toInternal(parseFloat(document.getElementById('in-item-w').value)||1));
             itemSize.h=Math.max(1,toInternal(parseFloat(document.getElementById('in-item-h').value)||1));
             rebuild3D();
-            updatePresetSelectHighlight();
         }
         function onMatrixChange() { matrixCount.x=Math.max(1,parseInt(document.getElementById('matrix-x').value)||1); matrixCount.y=Math.max(1,parseInt(document.getElementById('matrix-y').value)||1); matrixCount.z=Math.max(1,parseInt(document.getElementById('matrix-z').value)||1); rebuild3D(); }
 
         function onBoxParamChange() {
-            document.getElementById('box-preset-select').value='custom';
-            currentBoxName="自定纸箱";
+            currentBoxKey = 'custom';
+            currentBoxName = "自定纸箱";
+            document.getElementById('box-preset-text').textContent = '✏️ 自定义尺寸...';
             boxSize.l=Math.max(1,toInternal(parseFloat(document.getElementById('in-box-l').value)||1));
             boxSize.w=Math.max(1,toInternal(parseFloat(document.getElementById('in-box-w').value)||1));
             boxSize.h=Math.max(1,toInternal(parseFloat(document.getElementById('in-box-h').value)||1));
             rebuild3D();
-            updatePresetSelectHighlight();
         }
 
         function updateInputDisplays() {
@@ -2072,31 +2199,48 @@
             document.getElementById('in-phone-h').value = toDisplay(refPhoneSize.h);
 
             evaluateFitting();
-            updatePresetSelectHighlight();
         }
         function syncUI() { updateInputDisplays(); rebuild3D(); }
 
         function renderMultiItemsUI() {
-            const container = document.getElementById('multi-items-list'); container.innerHTML = '';
+            const container = document.getElementById('multi-items-list'); 
+            container.innerHTML = '';
+
             multiItemList.forEach((it, idx) => {
-                const row = document.createElement('div'); row.className = 'multi-item-card';
+                const row = document.createElement('div'); 
+                row.className = 'multi-item-card';
+                row.dataset.idx = idx;
+
                 row.innerHTML = `
-                    <div style="display:flex; justify-content:space-between; align-items:center; gap:4px;">
-                        <input type="text" class="sci-input" value="${it.name}" style="height:28px !important; font-weight:700; color:var(--antique); flex:1;" onchange="updateMultiItemProp(${idx}, 'name', this.value)">
-                        <div class="segmented-control" style="max-width:110px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; gap:4px; width:100%;">
+                        <div class="combo-box-wrapper">
+                            <input type="text" class="combo-name-input" value="${it.name}" placeholder="物品名称/速选..." oninput="updateMultiItemPropNoRerender(${idx}, 'name', this.value)">
+                            <button class="combo-arrow-btn" onclick="openCustomPicker('item', ${idx})" title="选择预设">▼</button>
+                        </div>
+
+                        <div class="segmented-control" style="max-width:105px; flex-shrink:0;">
                             <button class="seg-btn ${it.rot==='flat'?'active':''}" onclick="setMultiItemRot(${idx}, 'flat')">平</button>
                             <button class="seg-btn ${it.rot==='stand'?'active':''}" onclick="setMultiItemRot(${idx}, 'stand')">立</button>
                             <button class="seg-btn ${it.rot==='side'?'active':''}" onclick="setMultiItemRot(${idx}, 'side')">侧</button>
                         </div>
-                        <button class="sci-btn-mini danger" style="width:28px; height:28px !important; padding:0;" onclick="removeMultiItemRow(${idx})">✕</button>
+                        <button class="sci-btn-mini danger" style="width:28px; height:28px !important; padding:0; flex-shrink:0;" onclick="removeMultiItemRow(${idx})">✕</button>
                     </div>
                     <div class="grid-3col">
-                        <div class="input-with-label"><input type="number" class="sci-input" value="${toDisplay(it.l)}" oninput="updateMultiItemProp(${idx}, 'l', this.value)"><span class="suffix-text">长 <b class="u-lab">${curUnit}</b></span></div>
-                        <div class="input-with-label"><input type="number" class="sci-input" value="${toDisplay(it.w)}" oninput="updateMultiItemProp(${idx}, 'w', this.value)"><span class="suffix-text">宽 <b class="u-lab">${curUnit}</b></span></div>
-                        <div class="input-with-label"><input type="number" class="sci-input" value="${toDisplay(it.h)}" oninput="updateMultiItemProp(${idx}, 'h', this.value)"><span class="suffix-text">高 <b class="u-lab">${curUnit}</b></span></div>
+                        <div class="input-with-label"><input type="number" class="sci-input multi-dim-l-${idx}" value="${toDisplay(it.l)}" oninput="updateMultiItemPropNoRerender(${idx}, 'l', this.value)"><span class="suffix-text">长 <b class="u-lab">${curUnit}</b></span></div>
+                        <div class="input-with-label"><input type="number" class="sci-input multi-dim-w-${idx}" value="${toDisplay(it.w)}" oninput="updateMultiItemPropNoRerender(${idx}, 'w', this.value)"><span class="suffix-text">宽 <b class="u-lab">${curUnit}</b></span></div>
+                        <div class="input-with-label"><input type="number" class="sci-input multi-dim-h-${idx}" value="${toDisplay(it.h)}" oninput="updateMultiItemPropNoRerender(${idx}, 'h', this.value)"><span class="suffix-text">高 <b class="u-lab">${curUnit}</b></span></div>
                     </div>`;
                 container.appendChild(row);
             });
+        }
+
+        function updateMultiItemPropNoRerender(idx, prop, val) {
+            if (prop === 'name') {
+                multiItemList[idx].name = val;
+            } else {
+                multiItemList[idx][prop] = Math.max(1, toInternal(parseFloat(val) || 1));
+            }
+            solveOptimalMultiPacking(false, false);
         }
 
         function setMultiItemRot(idx, rot) {
@@ -2107,115 +2251,245 @@
             else if(rot==='flat'){ it.h=d[2]; it.l=d[0]; it.w=d[1]; }
             else { it.h=d[1]; it.l=d[0]; it.w=d[2]; }
             renderMultiItemsUI();
-            solveOptimalMultiPacking(false);
+            solveOptimalMultiPacking(false, true);
         }
 
         function addMultiItemRow() {
             multiItemList.push({ id: Date.now(), name: `物品 ${String.fromCharCode(65 + multiItemList.length)}`, l: 150, w: 100, h: 100, rot: 'flat', posX:0, posY:0, posZ:0 });
             renderMultiItemsUI();
-            solveOptimalMultiPacking(false);
+            solveOptimalMultiPacking(false, true);
         }
 
         async function removeMultiItemRow(idx) {
             if (multiItemList.length <= 1) { await sysAlert('至少保留一件物品！'); return; }
             multiItemList.splice(idx, 1);
             renderMultiItemsUI();
-            solveOptimalMultiPacking(false);
+            solveOptimalMultiPacking(false, true);
         }
 
-        function updateMultiItemProp(idx, prop, val) {
-            if (prop === 'name') multiItemList[idx].name = val;
-            else multiItemList[idx][prop] = Math.max(1, toInternal(parseFloat(val) || 1));
-            solveOptimalMultiPacking(false);
-        }
+        /* 3D 组合回溯极值点装箱核心算法 */
+        function solve3DMultiPackingEngine(itemsList, boxL, boxW, boxH, pad, gap, allowRotate = true) {
+            const N = itemsList.length;
+            if (N === 0) return { success: true, placements: [], bounding: { l: 0, w: 0, h: 0 } };
 
-        function solveOptimalMultiPacking(optimizeRotations=true) {
-            const pad = paddingThickness * 2;
-            const gap = ITEM_SURFACE_GAP;
-            const strategies = ['stack_y', 'line_x', 'line_z'];
-            let bestConfig = null;
-            let bestPaperBoxVol = Infinity;
-
-            strategies.forEach(strat => {
-                let sortedItems = [...multiItemList].map((it, idx) => ({ ...it, originalIdx: idx }));
-                if (strat === 'stack_y') {
-                    sortedItems.sort((a,b) => (b.l * b.w) - (a.l * a.w));
+            const items = itemsList.map((it, idx) => {
+                let oris = [];
+                if (allowRotate) {
+                    const perms = [
+                        [it.l, it.w, it.h], [it.l, it.h, it.w],
+                        [it.w, it.l, it.h], [it.w, it.h, it.l],
+                        [it.h, it.l, it.w], [it.h, it.w, it.l]
+                    ];
+                    const seen = new Set();
+                    for (let [l, w, h] of perms) {
+                        const k = `${l}_${w}_${h}`;
+                        if (!seen.has(k)) {
+                            seen.add(k);
+                            oris.push({ l, w, h, baseArea: l * w });
+                        }
+                    }
+                    oris.sort((a, b) => a.h - b.h || b.baseArea - a.baseArea);
+                } else {
+                    oris.push({ l: it.l, w: it.w, h: it.h, baseArea: it.l * it.w });
                 }
+                return {
+                    originalIdx: idx,
+                    oris,
+                    vol: it.l * it.w * it.h,
+                    maxArea: Math.max(...oris.map(o => o.baseArea))
+                };
+            });
 
-                let curX = 0, curZ = 0, curY = 0;
-                let bMaxX = 0, bMaxZ = 0, bMaxY = 0;
-                let tempPositions = [];
+            function getPermutations(arr) {
+                if (arr.length <= 1) return [arr];
+                if (arr.length > 5) {
+                    let sorted = [...arr].sort((a, b) => b.maxArea - a.maxArea || b.vol - a.vol);
+                    let sortedVol = [...arr].sort((a, b) => b.vol - a.vol || b.maxArea - a.maxArea);
+                    return [sorted, sortedVol];
+                }
+                let res = [];
+                for (let i = 0; i < arr.length; i++) {
+                    const current = arr[i];
+                    const remaining = arr.slice(0, i).concat(arr.slice(i + 1));
+                    const remainingPerms = getPermutations(remaining);
+                    for (let perm of remainingPerms) {
+                        res.push([current, ...perm]);
+                    }
+                }
+                return res;
+            }
 
-                sortedItems.forEach(it => {
-                    let il = it.l, iw = it.w, ih = it.h;
-                    if (optimizeRotations) {
-                        let d = [il, iw, ih].sort((a,b)=>b-a);
-                        if (strat === 'stack_y') {
-                            ih = d[2]; il = d[0]; iw = d[1];
+            const itemPermutations = getPermutations(items);
+            let bestSolution = null;
+            let bestScore = Infinity;
+
+            for (let perm of itemPermutations) {
+                let placed = [];
+                let extremePoints = [{ x: 0, y: 0, z: 0 }];
+                let currentPlacements = [];
+                let possible = true;
+
+                for (let item of perm) {
+                    let bestPlacement = null;
+                    let bestPtScore = Infinity;
+
+                    extremePoints.sort((a, b) => a.y - b.y || (a.x + a.z) - (b.x + b.z) || a.z - b.z || a.x - b.x);
+
+                    for (let pt of extremePoints) {
+                        for (let ori of item.oris) {
+                            const fullL = ori.l + pad * 2;
+                            const fullW = ori.w + pad * 2;
+                            const fullH = ori.h + pad * 2;
+
+                            const endX = pt.x + fullL;
+                            const endY = pt.y + fullH;
+                            const endZ = pt.z + fullW;
+
+                            if (endX > boxL + 0.001 || endY > boxH + 0.001 || endZ > boxW + 0.001) continue;
+
+                            let collide = false;
+                            for (let p of placed) {
+                                if (endX > p.x && pt.x < p.x + p.fullL - 0.001 + gap &&
+                                    endY > p.y && pt.y < p.y + p.fullH - 0.001 + gap &&
+                                    endZ > p.z && pt.z < p.z + p.fullW - 0.001 + gap) {
+                                    collide = true;
+                                    break;
+                                }
+                            }
+                            if (collide) continue;
+
+                            if (pt.y > 0.001) {
+                                let hasSupport = false;
+                                for (let p of placed) {
+                                    if (Math.abs((p.y + p.fullH + gap) - pt.y) < 2.0 || Math.abs((p.y + p.fullH) - pt.y) < 2.0) {
+                                        const overlapX = Math.max(0, Math.min(endX, p.x + p.fullL) - Math.max(pt.x, p.x));
+                                        const overlapZ = Math.max(0, Math.min(endZ, p.z + p.fullW) - Math.max(pt.z, p.z));
+                                        if (overlapX * overlapZ > (fullL * fullW * 0.35)) {
+                                            hasSupport = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (!hasSupport) continue;
+                            }
+
+                            const ptScore = pt.y * 1000000 + endY * 20000 + (endX * endZ) + (endX + endZ) * 10;
+                            if (ptScore < bestPtScore) {
+                                bestPtScore = ptScore;
+                                bestPlacement = {
+                                    originalIdx: item.originalIdx,
+                                    x: pt.x, y: pt.y, z: pt.z,
+                                    fullL, fullW, fullH,
+                                    il: ori.l, iw: ori.w, ih: ori.h
+                                };
+                            }
                         }
                     }
 
-                    const fullL = il + pad;
-                    const fullW = iw + pad;
-                    const fullH = ih + pad;
-
-                    let px = 0, py = 0, pz = 0;
-                    if (strat === 'stack_y') {
-                        px = fullL / 2;
-                        pz = fullW / 2;
-                        py = curY + fullH / 2;
-                        curY += fullH + gap;
-                        bMaxX = Math.max(bMaxX, fullL);
-                        bMaxZ = Math.max(bMaxZ, fullW);
-                        bMaxY = curY;
-                    } else if (strat === 'line_x') {
-                        px = curX + fullL / 2;
-                        pz = fullW / 2;
-                        py = fullH / 2;
-                        curX += fullL + gap;
-                        bMaxX = curX;
-                        bMaxZ = Math.max(bMaxZ, fullW);
-                        bMaxY = Math.max(bMaxY, fullH);
-                    } else if (strat === 'line_z') {
-                        px = fullL / 2;
-                        pz = curZ + fullW / 2;
-                        py = fullH / 2;
-                        curZ += fullW + gap;
-                        bMaxX = Math.max(bMaxX, fullL);
-                        bMaxZ = curZ;
-                        bMaxY = Math.max(bMaxY, fullH);
+                    if (!bestPlacement) {
+                        possible = false;
+                        break;
                     }
 
-                    tempPositions.push({ originalIdx: it.originalIdx, px, py, pz, il, iw, ih });
-                });
+                    placed.push(bestPlacement);
+                    currentPlacements.push(bestPlacement);
 
-                const reqSorted = [bMaxX + expectedGap*2, bMaxZ + expectedGap*2, bMaxY + expectedGap*2].sort((a,b)=>b-a);
-                let minMatchedBoxVol = Infinity;
+                    const px = bestPlacement.x;
+                    const py = bestPlacement.y;
+                    const pz = bestPlacement.z;
+                    const fl = bestPlacement.fullL;
+                    const fw = bestPlacement.fullW;
+                    const fh = bestPlacement.fullH;
 
-                for (const box of Object.values(BOX_PRESETS)) {
-                    const bDims = [...box.dims].sort((a,b)=>b-a);
-                    if (reqSorted[0] <= bDims[0] && reqSorted[1] <= bDims[1] && reqSorted[2] <= bDims[2]) {
-                        const v = box.dims[0] * box.dims[1] * box.dims[2];
-                        if (v < minMatchedBoxVol) minMatchedBoxVol = v;
+                    extremePoints.push({ x: px + fl + gap, y: py, z: pz });
+                    extremePoints.push({ x: px, y: py, z: pz + fw + gap });
+                    extremePoints.push({ x: px, y: py + fh + gap, z: pz });
+                    extremePoints.push({ x: px + fl + gap, y: py, z: pz + fw + gap });
+
+                    for (let pb of placed) {
+                        if (pb === bestPlacement) continue;
+                        extremePoints.push({ x: pb.x + pb.fullL + gap, y: py, z: pz });
+                        extremePoints.push({ x: px, y: py, z: pb.z + pb.fullW + gap });
+                        if (py > 0) extremePoints.push({ x: px, y: py, z: pb.z });
+                    }
+
+                    extremePoints = extremePoints.filter(p => {
+                        if (p.x >= boxL || p.y >= boxH || p.z >= boxW) return false;
+                        for (let pb of placed) {
+                            if (p.x >= pb.x && p.x < pb.x + pb.fullL &&
+                                p.y >= pb.y && p.y < pb.y + pb.fullH &&
+                                p.z >= pb.z && p.z < pb.z + pb.fullW) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    });
+                }
+
+                if (possible) {
+                    let maxBoundX = 0, maxBoundY = 0, maxBoundZ = 0;
+                    currentPlacements.forEach(p => {
+                        maxBoundX = Math.max(maxBoundX, p.x + p.fullL);
+                        maxBoundY = Math.max(maxBoundY, p.y + p.fullH);
+                        maxBoundZ = Math.max(maxBoundZ, p.z + p.fullW);
+                    });
+                    const solScore = maxBoundY * 50000 + (maxBoundX * maxBoundZ) + (maxBoundX + maxBoundZ) * 10;
+                    if (solScore < bestScore) {
+                        bestScore = solScore;
+                        bestSolution = {
+                            success: true,
+                            placements: currentPlacements,
+                            bounding: { l: maxBoundX, w: maxBoundZ, h: maxBoundY }
+                        };
                     }
                 }
+            }
 
-                const score = minMatchedBoxVol !== Infinity ? minMatchedBoxVol : (bMaxX * bMaxZ * bMaxY * 2);
-                if (score < bestPaperBoxVol) {
-                    bestPaperBoxVol = score;
-                    bestConfig = tempPositions;
+            return bestSolution || { success: false };
+        }
+
+        function solveOptimalMultiPacking(optimizeRotations=true, needRerender=true) {
+            const pad = paddingThickness;
+            const gap = ITEM_SURFACE_GAP;
+
+            let result = solve3DMultiPackingEngine(multiItemList, boxSize.l, boxSize.w, boxSize.h, pad, gap, optimizeRotations);
+
+            if (!result.success) {
+                let boxList = Object.values(BOX_PRESETS).map(b => ({ l: b.dims[0], w: b.dims[1], h: b.dims[2] }));
+                boxList.sort((a,b) => (a.l*a.w*a.h) - (b.l*b.w*b.h));
+
+                for (let testBox of boxList) {
+                    const orientations = [
+                        [testBox.l, testBox.w, testBox.h],
+                        [testBox.l, testBox.h, testBox.w],
+                        [testBox.w, testBox.l, testBox.h],
+                        [testBox.w, testBox.h, testBox.l],
+                        [testBox.h, testBox.l, testBox.w],
+                        [testBox.h, testBox.w, testBox.l]
+                    ];
+                    for (let [bl, bw, bh] of orientations) {
+                        result = solve3DMultiPackingEngine(multiItemList, bl, bw, bh, pad, gap, optimizeRotations);
+                        if (result.success) break;
+                    }
+                    if (result.success) break;
                 }
-            });
 
-            if (bestConfig) {
-                bestConfig.forEach(pos => {
-                    const it = multiItemList[pos.originalIdx];
-                    it.l = pos.il; it.w = pos.iw; it.h = pos.ih;
-                    it.posX = pos.px; it.posY = pos.py; it.posZ = pos.pz;
+                if (!result.success) {
+                    result = solve3DMultiPackingEngine(multiItemList, 3000, 3000, 3000, pad, gap, optimizeRotations);
+                }
+            }
+
+            if (result.success && result.placements) {
+                result.placements.forEach(p => {
+                    const it = multiItemList[p.originalIdx];
+                    it.l = p.il; it.w = p.iw; it.h = p.ih;
+                    it.posX = p.x + p.fullL / 2;
+                    it.posY = p.y + p.fullH / 2;
+                    it.posZ = p.z + p.fullW / 2;
                 });
             }
 
-            renderMultiItemsUI();
+            if (needRerender) renderMultiItemsUI();
             rebuild3D();
         }
 
@@ -2264,10 +2538,16 @@
             const reqW = totW + expectedGap * 2;
             const reqH = totH + expectedGap * 2;
 
-            const fitsCurrent = (reqL <= boxSize.l && reqW <= boxSize.w && reqH <= boxSize.h);
+            const fitsCurrent = (reqL <= boxSize.l + 0.001 && reqW <= boxSize.w + 0.001 && reqH <= boxSize.h + 0.001);
             const reqSorted = [reqL, reqW, reqH].sort((a,b)=>b-a);
             const boxSorted = [boxSize.l, boxSize.w, boxSize.h].sort((a,b)=>b-a);
-            const fitsRotated = (reqSorted[0] <= boxSorted[0] && reqSorted[1] <= boxSorted[1] && reqSorted[2] <= boxSorted[2]);
+            const fitsRotated = (reqSorted[0] <= boxSorted[0] + 0.001 && reqSorted[1] <= boxSorted[1] + 0.001 && reqSorted[2] <= boxSorted[2] + 0.001);
+
+            let canFitWithRepack = false;
+            if (packingMode === 'multi' && !fitsCurrent) {
+                const testPack = solve3DMultiPackingEngine(multiItemList, boxSize.l - expectedGap*2, boxSize.w - expectedGap*2, boxSize.h - expectedGap*2, paddingThickness, ITEM_SURFACE_GAP, true);
+                if (testPack.success) canFitWithRepack = true;
+            }
 
             const boxVol = (boxSize.l * boxSize.w * boxSize.h) / 1000000;
             const fillRate = Math.min(100, Math.round((rawVol / boxVol) * 100));
@@ -2288,11 +2568,11 @@
                 sFr.textContent = `${fillRate}% 利用率`;
                 sFr.style.display = 'inline-flex';
                 ss.innerHTML = `余量: 长+${toDisplay(boxSize.l - reqL)}${curUnit} | 宽+${toDisplay(boxSize.w - reqW)}${curUnit} | 高+${toDisplay(boxSize.h - reqH)}${curUnit}`;
-            } else if (fitsRotated) {
+            } else if (fitsRotated || canFitWithRepack) {
                 sc.className = 'sci-card match-eval-card fit-warn';
                 mb.className = 'badge-capsule bg-warn';
                 mb.textContent = `🔄 旋转可装入`;
-                sFr.className = 'badge-capsule bg-warn';
+                sFr.className = 'badge-capsule bg-fit';
                 sFr.textContent = `${fillRate}% 利用率`;
                 sFr.style.display = 'inline-flex';
                 ss.innerHTML = `提示：纸箱立起/旋转摆放即可装下，建议点击下方一键匹配自动对齐。`;
@@ -2309,59 +2589,106 @@
         }
 
         async function autoFitBestBox() {
-            if (packingMode === 'multi') {
-                solveOptimalMultiPacking(true);
-            }
-
+            const pad = paddingThickness;
+            const gap = ITEM_SURFACE_GAP;
             const totalExtra = expectedGap * 2;
-            const { totL, totW, totH } = getEffectiveItemBoundingBox();
-            
-            const reqL = totL + totalExtra;
-            const reqW = totW + totalExtra;
-            const reqH = totH + totalExtra;
-            const reqSorted = [reqL, reqW, reqH].sort((a,b)=>b-a);
 
             let bestBoxKey = null;
             let bestBoxOrientation = null;
+            let bestPlacements = null;
             let minVol = Infinity;
 
-            for (const [k, box] of Object.entries(BOX_PRESETS)) {
-                const bDimsSorted = [...box.dims].sort((a,b)=>b-a);
+            const sortedBoxes = Object.entries(BOX_PRESETS).sort((a, b) => {
+                return (a[1].dims[0]*a[1].dims[1]*a[1].dims[2]) - (b[1].dims[0]*b[1].dims[1]*b[1].dims[2]);
+            });
 
-                if (reqSorted[0] <= bDimsSorted[0] && reqSorted[1] <= bDimsSorted[1] && reqSorted[2] <= bDimsSorted[2]) {
+            if (packingMode === 'single') {
+                const { totL, totW, totH } = getEffectiveItemBoundingBox();
+                const reqL = totL + totalExtra;
+                const reqW = totW + totalExtra;
+                const reqH = totH + totalExtra;
+                const reqSorted = [reqL, reqW, reqH].sort((a,b)=>b-a);
+
+                for (const [k, box] of sortedBoxes) {
+                    const bDimsSorted = [...box.dims].sort((a,b)=>b-a);
+                    if (reqSorted[0] <= bDimsSorted[0] + 0.001 && reqSorted[1] <= bDimsSorted[1] + 0.001 && reqSorted[2] <= bDimsSorted[2] + 0.001) {
+                        const v = box.dims[0] * box.dims[1] * box.dims[2];
+                        if (v < minVol) {
+                            minVol = v;
+                            bestBoxKey = k;
+                            const perms = [
+                                [box.dims[0], box.dims[1], box.dims[2]],
+                                [box.dims[0], box.dims[2], box.dims[1]],
+                                [box.dims[1], box.dims[0], box.dims[2]],
+                                [box.dims[1], box.dims[2], box.dims[0]],
+                                [box.dims[2], box.dims[0], box.dims[1]],
+                                [box.dims[2], box.dims[1], box.dims[0]]
+                            ];
+                            let matched = null;
+                            for (const [bl, bw, bh] of perms) {
+                                if (reqL <= bl + 0.001 && reqW <= bw + 0.001 && reqH <= bh + 0.001) { matched = [bl, bw, bh]; break; }
+                            }
+                            bestBoxOrientation = matched || [bDimsSorted[0], bDimsSorted[1], bDimsSorted[2]];
+                            break;
+                        }
+                    }
+                }
+            } else {
+                for (const [k, box] of sortedBoxes) {
                     const v = box.dims[0] * box.dims[1] * box.dims[2];
-                    if (v < minVol) {
+
+                    const perms = [
+                        [box.dims[0], box.dims[1], box.dims[2]],
+                        [box.dims[0], box.dims[2], box.dims[1]],
+                        [box.dims[1], box.dims[0], box.dims[2]],
+                        [box.dims[1], box.dims[2], box.dims[0]],
+                        [box.dims[2], box.dims[0], box.dims[1]],
+                        [box.dims[2], box.dims[1], box.dims[0]]
+                    ];
+
+                    let matchedOrient = null;
+                    let matchedPlacements = null;
+
+                    for (const [bl, bw, bh] of perms) {
+                        const testL = bl - totalExtra;
+                        const testW = bw - totalExtra;
+                        const testH = bh - totalExtra;
+                        if (testL <= 0 || testW <= 0 || testH <= 0) continue;
+
+                        const packRes = solve3DMultiPackingEngine(multiItemList, testL, testW, testH, pad, gap, true);
+                        if (packRes.success) {
+                            matchedOrient = [bl, bw, bh];
+                            matchedPlacements = packRes.placements;
+                            break;
+                        }
+                    }
+
+                    if (matchedOrient) {
                         minVol = v;
                         bestBoxKey = k;
-
-                        const perms = [
-                            [box.dims[0], box.dims[1], box.dims[2]],
-                            [box.dims[0], box.dims[2], box.dims[1]],
-                            [box.dims[1], box.dims[0], box.dims[2]],
-                            [box.dims[1], box.dims[2], box.dims[0]],
-                            [box.dims[2], box.dims[0], box.dims[1]],
-                            [box.dims[2], box.dims[1], box.dims[0]]
-                        ];
-
-                        let matchedOrient = null;
-                        for (const [bl, bw, bh] of perms) {
-                            if (reqL <= bl && reqW <= bw && reqH <= bh) {
-                                matchedOrient = [bl, bw, bh];
-                                break;
-                            }
-                        }
-                        bestBoxOrientation = matchedOrient || [bDimsSorted[0], bDimsSorted[1], bDimsSorted[2]];
+                        bestBoxOrientation = matchedOrient;
+                        bestPlacements = matchedPlacements;
+                        break;
                     }
                 }
             }
 
             if (bestBoxKey && bestBoxOrientation) {
-                currentBoxName = BOX_PRESETS[bestBoxKey].name;
-                document.getElementById('box-preset-select').value = bestBoxKey;
-                
+                applyBoxPreset(bestBoxKey);
                 boxSize.l = bestBoxOrientation[0];
                 boxSize.w = bestBoxOrientation[1];
                 boxSize.h = bestBoxOrientation[2];
+
+                if (packingMode === 'multi' && bestPlacements) {
+                    bestPlacements.forEach(p => {
+                        const it = multiItemList[p.originalIdx];
+                        it.l = p.il; it.w = p.iw; it.h = p.ih;
+                        it.posX = p.x + p.fullL / 2;
+                        it.posY = p.y + p.fullH / 2;
+                        it.posZ = p.z + p.fullW / 2;
+                    });
+                    renderMultiItemsUI();
+                }
 
                 updateInputDisplays();
                 rebuild3D();
@@ -2447,9 +2774,23 @@
             controls.update();
         }
 
-        /* 生成纯白高定黑金/深色纸箱材质 */
         function createSmartBoxMaterials(itemName, L, W, H, baseColor, isCarton) {
-            const txtColor = "#181614";
+            let txtColor = "#181614";
+            let edgeBorderColor = "#9B7844";
+
+            if (currentSkin === 'dark') {
+                txtColor = "#F0F6FC";
+                edgeBorderColor = "#E3B341";
+            } else if (currentSkin === 'sage') {
+                txtColor = "#243329";
+                edgeBorderColor = "#4D735B";
+            } else if (currentSkin === 'apricot') {
+                txtColor = "#3D291D";
+                edgeBorderColor = "#B86B43";
+            } else if (currentSkin === 'tech') {
+                txtColor = "#0F172A";
+                edgeBorderColor = "#334155";
+            }
 
             function makeTex(w_mm, h_mm, labelX, labelY, labelCenter) {
                 let cw = Math.max(512, Math.round(w_mm * 8));
@@ -2462,31 +2803,14 @@
                 ctx.fillStyle = baseColor;
                 ctx.fillRect(0, 0, cw, ch);
                 
-                // 黑金双重优雅细框线
                 if (isCarton) {
-                    if (currentSkin === 'editorial') {
-                        ctx.strokeStyle = "#9B7844"; // 外层细金线
-                        ctx.lineWidth = 6;
-                        ctx.strokeRect(6, 6, cw-12, ch-12);
-                        ctx.strokeStyle = "#181614"; // 内层黑墨线
-                        ctx.lineWidth = 2;
-                        ctx.strokeRect(12, 12, cw-24, ch-24);
-                    } else if (currentSkin === 'dark') {
-                        ctx.strokeStyle = "#E3B341";
-                        ctx.lineWidth = 6;
-                        ctx.strokeRect(6, 6, cw-12, ch-12);
-                        ctx.strokeStyle = "#181614";
-                        ctx.lineWidth = 2;
-                        ctx.strokeRect(12, 12, cw-24, ch-24);
-                    } else {
-                        ctx.strokeStyle = "#334155";
-                        ctx.lineWidth = 6;
-                        ctx.strokeRect(6, 6, cw-12, ch-12);
-                    }
-                } else {
-                    ctx.strokeStyle = "rgba(24, 22, 20, 0.12)";
+                    ctx.strokeStyle = edgeBorderColor;
                     ctx.lineWidth = 4;
-                    ctx.strokeRect(4, 4, cw-8, ch-8);
+                    ctx.strokeRect(5, 5, cw - 10, ch - 10);
+                } else {
+                    ctx.strokeStyle = "rgba(155, 120, 68, 0.15)";
+                    ctx.lineWidth = 3;
+                    ctx.strokeRect(4, 4, cw - 8, ch - 8);
                 }
                 
                 ctx.fillStyle = txtColor;
@@ -2550,24 +2874,19 @@
             const boxMesh = new THREE.Mesh(boxGeo, boxMats);
             boxMesh.position.set(0, boxSize.h / 2, 0);
             
-            // 描边颜色全面适配黑金与石墨
-            let edgeColor;
-            if (currentSkin === 'editorial') {
-                edgeColor = 0x181614; // 高级黑金描边
-            } else if (currentSkin === 'dark') {
-                edgeColor = 0xE3B341; // 曜金醒目描边
-            } else {
-                edgeColor = 0x334155; // 极简石墨色（彻底剔除蓝色描边）
-            }
+            let edgeColorHex;
+            if (currentSkin === 'editorial') edgeColorHex = 0x9B7844;
+            else if (currentSkin === 'dark') edgeColorHex = 0xE3B341;
+            else if (currentSkin === 'sage') edgeColorHex = 0x4D735B;
+            else if (currentSkin === 'apricot') edgeColorHex = 0xB86B43;
+            else edgeColorHex = 0x334155;
 
-            const boxEdges = new THREE.LineSegments(
-                new THREE.EdgesGeometry(boxGeo), 
-                new THREE.LineBasicMaterial({ color: edgeColor, linewidth: 2, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 })
-            );
+            const boxEdgeMat = new THREE.LineBasicMaterial({ color: edgeColorHex, linewidth: 1, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
+            const boxEdges = new THREE.LineSegments(new THREE.EdgesGeometry(boxGeo), boxEdgeMat);
             boxMesh.add(boxEdges);
             boxGroup.add(boxMesh);
 
-            const fT = 2;
+            const fT = 1.5;
             const fMat = new THREE.MeshStandardMaterial({ 
                 color: boxCol, 
                 roughness: 0.8, 
@@ -2580,28 +2899,40 @@
                 polygonOffsetUnits: 1
             });
             
-            const hF = new THREE.Group(); hF.position.set(0, boxSize.h, boxSize.w/2); const mF = new THREE.Mesh(new THREE.BoxGeometry(boxSize.l, fT, boxSize.w/2), fMat); mF.position.set(0, fT/2, -boxSize.w/4); hF.add(mF); boxGroup.add(hF);
-            const hB = new THREE.Group(); hB.position.set(0, boxSize.h, -boxSize.w/2); const mB = new THREE.Mesh(new THREE.BoxGeometry(boxSize.l, fT, boxSize.w/2), fMat); mB.position.set(0, fT/2, boxSize.w/4); hB.add(mB); boxGroup.add(hB);
-            const hL = new THREE.Group(); hL.position.set(-boxSize.l/2, boxSize.h, 0); const mL = new THREE.Mesh(new THREE.BoxGeometry(boxSize.w/2, fT, boxSize.w), fMat); mL.position.set(boxSize.w/4, fT/2, 0); hL.add(mL); boxGroup.add(hL);
-            const hR = new THREE.Group(); hR.position.set(boxSize.l/2, boxSize.h, 0); const mR = new THREE.Mesh(new THREE.BoxGeometry(boxSize.w/2, fT, boxSize.w), fMat); mR.position.set(-boxSize.w/4, fT/2, 0); hR.add(mR); boxGroup.add(hR);
+            function createFlapWithEdges(geo) {
+                const mesh = new THREE.Mesh(geo, fMat);
+                mesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo), boxEdgeMat));
+                return mesh;
+            }
+
+            const hF = new THREE.Group(); hF.position.set(0, boxSize.h, boxSize.w/2); const mF = createFlapWithEdges(new THREE.BoxGeometry(boxSize.l, fT, boxSize.w/2)); mF.position.set(0, fT/2, -boxSize.w/4); hF.add(mF); boxGroup.add(hF);
+            const hB = new THREE.Group(); hB.position.set(0, boxSize.h, -boxSize.w/2); const mB = createFlapWithEdges(new THREE.BoxGeometry(boxSize.l, fT, boxSize.w/2)); mB.position.set(0, fT/2, boxSize.w/4); hB.add(mB); boxGroup.add(hB);
+            const hL = new THREE.Group(); hL.position.set(-boxSize.l/2, boxSize.h, 0); const mL = createFlapWithEdges(new THREE.BoxGeometry(boxSize.w/2, fT, boxSize.w)); mL.position.set(boxSize.w/4, fT/2, 0); hL.add(mL); boxGroup.add(hL);
+            const hR = new THREE.Group(); hR.position.set(boxSize.l/2, boxSize.h, 0); const mR = createFlapWithEdges(new THREE.BoxGeometry(boxSize.w/2, fT, boxSize.w)); mR.position.set(-boxSize.w/4, fT/2, 0); hR.add(mR); boxGroup.add(hR);
 
             if (flapState === 'closed') { hF.rotation.x = 0; hB.rotation.x = 0; hL.rotation.z = 0; hR.rotation.z = 0; } 
             else if (flapState === 'half') { const angHalf = Math.PI * 0.75; hF.rotation.x = angHalf; hB.rotation.x = -angHalf; hL.rotation.z = angHalf; hR.rotation.z = -angHalf; } 
             else if (flapState === 'open') { const angOpen = Math.PI * 1.3; hF.rotation.x = angOpen; hB.rotation.x = -angOpen; hL.rotation.z = angOpen; hR.rotation.z = -angOpen; }
 
-            const tapeCol = currentSkin === 'dark' ? 0xE3B341 : (currentSkin === 'editorial' ? 0xB89047 : 0x475569);
+            let tapeCol = 0xB89047;
+            if (currentSkin === 'dark') tapeCol = 0xE3B341;
+            else if (currentSkin === 'sage') tapeCol = 0x4D735B;
+            else if (currentSkin === 'apricot') tapeCol = 0xB86B43;
+            else if (currentSkin === 'tech') tapeCol = 0x475569;
+
             tapeMesh = new THREE.Mesh(new THREE.BoxGeometry(boxSize.l+6, 1.5, 36), new THREE.MeshStandardMaterial({ color: tapeCol, roughness: 0.3, transparent: true, opacity: 0.95 }));
             tapeMesh.position.set(0, boxSize.h+fT+1, 0);
             boxGroup.add(tapeMesh);
             tapeMesh.visible = (flapState === 'closed' && tapeEnabled);
 
-            const edgeMat = new THREE.LineBasicMaterial({ color: 0x78716c, linewidth: 1.5, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
+            const itemEdgeColor = currentSkin === 'dark' ? 0x9CA3AF : 0x78716c;
+            const edgeMat = new THREE.LineBasicMaterial({ color: itemEdgeColor, linewidth: 1, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
             let { totL, totW, totH } = getEffectiveItemBoundingBox();
 
             itemsGroup.position.y = FLOOR_OFFSET;
 
             const padMaterial = new THREE.MeshStandardMaterial({
-                color: currentSkin === 'tech' ? 0x64748b : 0x9B7844,
+                color: edgeColorHex,
                 transparent: true,
                 opacity: 0.2,
                 roughness: 0.2,
@@ -2635,22 +2966,31 @@
                                 const pGeo = new THREE.BoxGeometry(blockL, blockH, blockW);
                                 const pMesh = new THREE.Mesh(pGeo, padMaterial);
                                 pMesh.position.set(px, py, pz);
-                                pMesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(pGeo), new THREE.LineBasicMaterial({ color: edgeColor, opacity: 0.45, transparent: true })));
+                                pMesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(pGeo), new THREE.LineBasicMaterial({ color: edgeColorHex, opacity: 0.45, transparent: true })));
                                 padGroup.add(pMesh);
                             }
                         }
                     }
                 }
             } else {
-                const shiftX = totL / 2;
-                const shiftZ = totW / 2;
+                let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
+                multiItemList.forEach(it => {
+                    const hwL = it.l / 2 + paddingThickness;
+                    const hwW = it.w / 2 + paddingThickness;
+                    minX = Math.min(minX, it.posX - hwL);
+                    maxX = Math.max(maxX, it.posX + hwL);
+                    minZ = Math.min(minZ, it.posZ - hwW);
+                    maxZ = Math.max(maxZ, it.posZ + hwW);
+                });
+                const centerX = (minX + maxX) / 2;
+                const centerZ = (minZ + maxZ) / 2;
 
                 multiItemList.forEach(it => {
                     const iMesh = new THREE.Mesh(new THREE.BoxGeometry(it.l, it.h, it.w), createSmartBoxMaterials(it.name, it.l, it.w, it.h, itemCol, false));
                     iMesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(it.l, it.h, it.w)), edgeMat));
-                    const px = it.posX - shiftX;
+                    const px = it.posX - centerX;
                     const py = it.posY;
-                    const pz = it.posZ - shiftZ;
+                    const pz = it.posZ - centerZ;
                     iMesh.position.set(px, py, pz);
                     itemsGroup.add(iMesh);
 
@@ -2661,7 +3001,7 @@
                         const pGeo = new THREE.BoxGeometry(prL, prH, prW);
                         const pMesh = new THREE.Mesh(pGeo, padMaterial);
                         pMesh.position.set(px, py, pz);
-                        pMesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(pGeo), new THREE.LineBasicMaterial({ color: edgeColor, opacity: 0.45, transparent: true })));
+                        pMesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(pGeo), new THREE.LineBasicMaterial({ color: edgeColorHex, opacity: 0.45, transparent: true })));
                         padGroup.add(pMesh);
                     }
                 });
@@ -2720,7 +3060,7 @@
 
         function setSkinMode(skin) {
             currentSkin = skin;
-            document.body.classList.remove('skin-editorial', 'skin-dark', 'skin-tech');
+            document.body.classList.remove('skin-editorial', 'skin-dark', 'skin-tech', 'skin-sage', 'skin-apricot');
             document.body.classList.add(`skin-${skin}`);
             
             document.querySelectorAll('.skin-card-item').forEach(el => el.classList.remove('active'));
@@ -2731,31 +3071,46 @@
                 scene.background = new THREE.Color(0xF8F6F0);
                 gridHelper.material.color.setHex(0x9B7844);
                 document.getElementById('picker-bg').value = '#F8F6F0';
-                document.getElementById('picker-box').value = '#FFFFFF'; // 老钱纯白纸箱
-                document.getElementById('picker-item').value = '#EBE7DF';
+                document.getElementById('picker-box').value = '#FFFFFF';
+                document.getElementById('picker-item').value = '#FAF6EC';
             } else if (skin === 'dark') {
                 scene.background = new THREE.Color(0x0E1217);
                 gridHelper.material.color.setHex(0xE3B341);
                 document.getElementById('picker-bg').value = '#0E1217';
-                document.getElementById('picker-box').value = '#FFFFFF'; // 曜黑高辨识纯白箱
+                document.getElementById('picker-box').value = '#FFFFFF';
                 document.getElementById('picker-item').value = '#212631';
+            } else if (skin === 'sage') {
+                scene.background = new THREE.Color(0xEFF3EF);
+                gridHelper.material.color.setHex(0x4D735B);
+                document.getElementById('picker-bg').value = '#EFF3EF';
+                document.getElementById('picker-box').value = '#FAFBF9';
+                document.getElementById('picker-item').value = '#E2EBE2';
+            } else if (skin === 'apricot') {
+                scene.background = new THREE.Color(0xFBF6EE);
+                gridHelper.material.color.setHex(0xB86B43);
+                document.getElementById('picker-bg').value = '#FBF6EE';
+                document.getElementById('picker-box').value = '#FFFDF9';
+                document.getElementById('picker-item').value = '#F5E8D3';
             } else {
                 scene.background = new THREE.Color(0xF3F4F6);
                 gridHelper.material.color.setHex(0x334155);
                 document.getElementById('picker-bg').value = '#F3F4F6';
-                document.getElementById('picker-box').value = '#FFFFFF'; // 极简纯白纸箱
+                document.getElementById('picker-box').value = '#FFFFFF';
                 document.getElementById('picker-item').value = '#CBD5E1';
             }
             rebuild3D();
         }
 
-        function togglePolkaLayer(checked) {
-            document.getElementById('polkaPatternLayer').style.display = checked ? 'block' : 'none';
-        }
-
         function toggleDustLayer(checked) {
             dustActive = checked;
             document.getElementById('dustCanvas').style.display = checked ? 'block' : 'none';
+        }
+
+        let particleStyle = 'dust';
+        function setParticleStyle(st) {
+            particleStyle = st;
+            updateSegment('particle-type-group', `p-mode-${st}`);
+            initParticlesList();
         }
 
         function applyCustomColors() {
@@ -2783,6 +3138,27 @@
 
         let dustActive = true;
         let particles = [];
+
+        function initParticlesList() {
+            const canvas = document.getElementById('dustCanvas');
+            if (!canvas) return;
+            particles = [];
+            const count = 40;
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    radius: Math.random() * 2.2 + 0.8,
+                    vx: (Math.random() - 0.5) * 0.45,
+                    vy: Math.random() * 0.45 + 0.2,
+                    alpha: Math.random() * 0.45 + 0.25,
+                    twinkleSpeed: Math.random() * 0.02 + 0.01,
+                    rotation: Math.random() * Math.PI * 2,
+                    rotSpeed: (Math.random() - 0.5) * 0.03
+                });
+            }
+        }
+
         function initDustCanvas() {
             const canvas = document.getElementById('dustCanvas');
             const ctx = canvas.getContext('2d');
@@ -2790,35 +3166,56 @@
             function resize() {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
+                initParticlesList();
             }
             resize();
             window.addEventListener('resize', resize);
 
-            particles = [];
-            for (let i = 0; i < 35; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    radius: Math.random() * 2.0 + 0.6,
-                    vx: (Math.random() - 0.5) * 0.35,
-                    vy: Math.random() * 0.45 + 0.15,
-                    alpha: Math.random() * 0.35 + 0.2
-                });
-            }
-
             function render() {
                 if (dustActive) {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.fillStyle = currentSkin === 'dark' ? '#E3B341' : '#9B7844';
+                    
+                    let pCol = '#9B7844';
+                    if (currentSkin === 'dark') pCol = '#E3B341';
+                    else if (currentSkin === 'sage') pCol = '#4D735B';
+                    else if (currentSkin === 'apricot') pCol = '#B86B43';
+                    else if (currentSkin === 'tech') pCol = '#64748B';
+
+                    ctx.fillStyle = pCol;
+                    ctx.strokeStyle = pCol;
 
                     particles.forEach(p => {
-                        ctx.globalAlpha = p.alpha;
-                        ctx.beginPath();
-                        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                        ctx.fill();
+                        p.alpha += Math.sin(Date.now() * p.twinkleSpeed) * 0.006;
+                        ctx.globalAlpha = Math.max(0.15, Math.min(0.75, p.alpha));
+                        
+                        if (particleStyle === 'star') {
+                            ctx.save();
+                            ctx.translate(p.x, p.y);
+                            ctx.rotate(p.rotation);
+                            ctx.beginPath();
+                            ctx.moveTo(0, -p.radius * 2.2);
+                            ctx.lineTo(p.radius * 0.6, 0);
+                            ctx.lineTo(0, p.radius * 2.2);
+                            ctx.lineTo(-p.radius * 0.6, 0);
+                            ctx.closePath();
+                            ctx.fill();
+                            ctx.restore();
+                        } else if (particleStyle === 'motes') {
+                            ctx.save();
+                            ctx.translate(p.x, p.y);
+                            ctx.beginPath();
+                            ctx.arc(0, 0, p.radius * 1.5, 0, Math.PI * 2);
+                            ctx.fill();
+                            ctx.restore();
+                        } else {
+                            ctx.beginPath();
+                            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
 
                         p.x += p.vx;
                         p.y -= p.vy;
+                        p.rotation += p.rotSpeed;
 
                         if (p.y < 0) p.y = canvas.height;
                         if (p.x < 0) p.x = canvas.width;
